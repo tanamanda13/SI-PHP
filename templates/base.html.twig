@@ -11,32 +11,8 @@
         {% block stylesheets %}{% endblock %}
 
     </head>
-    <style>
-        nav ul {
-            display: flex;
-            justify-content: space-evenly;
-            width: 100vw;
-            height: 10vh;
-            list-style: none;
-        }
-        ul li a {
-            text-decoration: none;
-            color: black;
-            font-size: 20px;
-            font-family: 'Avenir';
-        }
-    </style>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li><a href="/">Accueil</a></li>
-                    <li><a href=""></a></li>
-                    <li><a href=""></a></li>
-                    <li><a href="/logout">Déconnexion</a></li>
-                </ul>
-            </nav>
-        </header>
+       {{ include('inc/navbar.html.twig')}}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

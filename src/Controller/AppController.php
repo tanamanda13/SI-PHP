@@ -54,4 +54,11 @@ class AppController extends AbstractController
     {
     	return new Response('<h1>Supprimer l\'article ' .$id. '</h1>');
     }
+
+    public function clash($id)
+    {
+    	return $this->render('app/clash.html.twig', [
+            'slug' => $id,
+        ]);
+    }
 }

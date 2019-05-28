@@ -24,5 +24,11 @@ article_remove:
   requirements:
     id: '\d+'
 
+clash_show:
+  path: /clash/{id}
+  controller: App\Controller\AppController::clash
+  requirements:
+    id: '\d+'
+
 logout:
     path: /logout
