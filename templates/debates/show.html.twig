@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+
+{% block title %} Test Debates{% endblock %}
+
+{% block body %}
+<h1>{{debate.title}}</h1>
+<h2>Votes : <span>{{debate.votes}}</span>
+<h3>Posted by <span>{{debate.author}}</span> ;  <span>{{debate.created}}</span></h3>
+<p>{{debate.content}}</p>
+<a href="/">Go back</a>
+{% endblock %}
