@@ -1,4 +1,13 @@
+{# {{ form_start(form) }}
+    {{ form_row(form.content) }}
+    
+{{ form_end(form) }} #}
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="form-control">
+    <i class="fa fa-calendar"></i> {{ form_label(form.title, 'Titre du débat :') }}
+    {{ form_widget(form.title) }}</br>
+    <i class="fa fa-calendar"></i> {{ form_label(form.content, 'Contenu :') }}
+    {{ form_widget(form.content) }}</br>
+    <button class="btn">{{ button_label|default('Save') }}</button> 
+</div>
+{{ form_end(form) }} 
