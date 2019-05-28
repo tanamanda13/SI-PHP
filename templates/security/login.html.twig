@@ -17,17 +17,18 @@
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
-
+{# 
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" name="_remember_me"> Remember me
             </label>
-        </div>
+        </div> #}
    
 
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+    <a href="/register">Pas encore inscrit ?</a>
 </form>
 
 
