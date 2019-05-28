@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Debate;
 use App\Service\Relativetime;
+use App\Repository\DebateRepository;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,24 +16,47 @@ class DebateController extends AbstractController {
   * @Route("/", name="debate_list")
   * @Method("GET")
   */
-  public function index(Relativetime $relativetime){
-    /**
-     * TODO: Changer la date écrite en dur par la date du debat & faire la même chose pour la page show
-      */
-    $processed = $relativetime->time_elapsed_string('2010-04-28 17:25:43');
-    \var_dump($processed);
-
-    $debates = $this->getDoctrine()->getRepository(Debate::class)->findAll();
-    return $this->render('debates/index.html.twig', array('debates'=>$debates)); 
+  public function index(Relativetime $relativetime, DebateRepository $debates){
+    /* $allDebates = findAll(''); */
+    $limit = 5;
+    $offset = 0;
+    $lastDebates = $debates->findBy(array(), null, $limit, $offset);
+    $results = [];
+    foreach($lastDebates as $debate){
+      $datetime = $debate->getCreated();
+      $processed = $relativetime->time_elapsed_string($datetime);
+      $results[] = [
+        'id' => $debate->getId(),
+        'title' => $debate->getTitle(),
+        'content' => $debate->getContent(),
+        'category' => $debate->getCategory(),
+        'author' => $debate->getAuthor(),
+        'created' => $processed,
+        'votes' => $debate->getVotes()
+      ];
+    }
+    return $this->render('debates/index.html.twig', array('debates'=>$results)); 
   }
   
   /**
   * @Route("/debate/{id}", name="debate_show")
   * @Method("GET")
   */
-  public function show($id){
-    $debate = $this->getDoctrine()->getRepository(Debate::class)->find($id);
+  public function show($id, Relativetime $relativetime, DebateRepository $debates){
+  
+    $debate = $debates->find($id);
+    $datetime = $debate->getCreated();
+    $processed = $relativetime->time_elapsed_string($datetime);
+    $result = [
+      'id' => $debate->getId(),
+      'title' => $debate->getTitle(),
+      'content' => $debate->getContent(),
+      'category' => $debate->getCategory(),
+      'author' => $debate->getAuthor(),
+      'created' => $processed,
+      'votes' => $debate->getVotes()
+    ];
 
-    return $this->render('debates/show.html.twig', array('debate'=>$debate)); 
+    return $this->render('debates/show.html.twig', array('debate'=>$result)); 
   }
 }
