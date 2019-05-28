@@ -4,8 +4,8 @@
 
 {% block body %}
 <h1>{{debate.title}}</h1>
-<h2>Votes : <span>{{debate.votes}}</span>
+<h2>Votes : <span>{{debate.total_votes}}</span>
 <h3>Posted by <span>{{debate.author}}</span> ;  <span>{{debate.created}}</span></h3>
-<p>{{debate.content}}</p>
+<p>{{debate.description}}</p>
 <a href="/">Go back</a>
 {% endblock %}

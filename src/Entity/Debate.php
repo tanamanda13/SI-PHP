@@ -23,7 +23,7 @@ class Debate
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private $description;
 
     /**
      * @ORM\Column(type="text", length=50)
@@ -41,10 +41,35 @@ class Debate
     private $created;
 
     /**
+     * @ORM\Column(type="text", length=255)
+     */
+    private $side1;
+
+    /**
+     * @ORM\Column(type="text", length=255)
+     */
+    private $side2;
+
+     /**
      * @ORM\Column(type="integer")
      */
-    private $votes;
+    private $side1_votes;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $side2_votes;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $total_votes;
+
+    
+    /* id, name, category, description, author, date_time, side1, side2, side1_votes, side2_votes, total_votes */
+    /**
+     * TODO: mettre des vérifications dans tous les setters
+    */
     public function getId(): ?int
     {
         return $this->id;
@@ -58,12 +83,12 @@ class Debate
         $this->title = $title;
     }
     
-    public function getContent(){
-        return $this->content;
+    public function getDescription(){
+        return $this->description;
     }
 
-    public function setContent($content){
-        $this->content = $content;
+    public function setDescription($description){
+        $this->description = $description;
     }
 
     public function getCategory(){
@@ -92,13 +117,42 @@ class Debate
         $this->created = new \DateTime("now");
     }
 
-    public function getVotes(){
-        return $this->votes;
+    public function getSide1(){
+        return $this->side1;
     }
-    /**
-     * TODO: set votes en fonction de plus ou moins (upvote / downvote)
-      */
-    public function setVotes($votes){
-        $this->votes = $votes;
+
+    public function setSide1($side1){
+        $this->side1 = $side1;
+    }
+
+    public function getSide2(){
+        return $this->side2;
+    }
+
+    public function setSide2($side2){
+        $this->side2 = $side2;
+    }
+
+    public function getSide1_votes(){
+        return $this->side1_votes;
+    }
+
+    public function setSide1_votes($side1_votes){
+        $this->side1_votes = $side1_votes;
+    }
+    public function getSide2_votes(){
+        return $this->side2_votes;
+    }
+
+    public function setSide2_votes($side2_votes){
+        $this->side2_votes = $side2_votes;
+    }
+
+    public function getTotal_votes(){
+        return $this->total_votes;
+    }
+
+    public function setTotal_votes($total_votes){
+        $this->total_votes = $total_votes;
     }
 }

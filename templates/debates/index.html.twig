@@ -8,10 +8,14 @@
   <thead>
     <tr>
       <th>Debate title</th>
+      <th>Side 1</th>
+      <th>Votes</th>
+      <th>Side 2</th>
+      <th>Votes</th>
       <th>Category</th>
       <th>Author</th>
       <th>Created</th>
-      <th>Votes</th>
+      <th>Total votes</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -19,10 +23,14 @@
   {% for debate in debates %}
   <tr>
     <td>{{debate.title}}</td>
+    <td>{{debate.side1}}</td>
+    <td>{{debate.side1_votes}}</td>
+    <td>{{debate.side2}}</td>
+    <td>{{debate.side2_votes}}</td>
     <td>{{debate.category}}</td>
     <td>{{debate.author}}</td>
     <td>{{debate.created}}</td>
-    <td>{{debate.votes}}</td>
+    <td>{{debate.total_votes}}</td>
     <td>
       <a href="/debate/1" class="btn btn-dark">Show</a>
     </td>
