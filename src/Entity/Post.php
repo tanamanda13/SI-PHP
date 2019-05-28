@@ -31,6 +31,21 @@ class Post
      */
     private $title;
 
+    /**
+     * @ORM\Column(type="decimal", precision=6, scale=0, nullable=true)
+     */
+    private $votes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tag;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +83,42 @@ class Post
     public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    public function setVotes($votes): self
+    {
+        $this->votes = $votes;
+
+        return $this;
+    }
+
+    public function getTag(): ?string
+    {
+        return $this->tag;
+    }
+
+    public function setTag(string $tag): self
+    {
+        $this->tag = $tag;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
