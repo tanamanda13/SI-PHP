@@ -6,15 +6,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class ArticleController extends Controller {
+class DebateController extends Controller {
   /**
   * @Route("/")
   * @Method("GET")
   */
 
   public function index(){
-    $articles = ['Article1', 'Article2'];
+    $debates = ['Debate1', 'Debate2'];
 
-    return $this->render('articles/index.html.twig', array('articles'=>$articles)); 
+    return $this->render('debates/index.html.twig', array('debates'=>$debates)); 
   }
 }
