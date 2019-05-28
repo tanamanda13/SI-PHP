@@ -1,4 +1,4 @@
-
+.DS_Store
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -7,3 +7,5 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+.env

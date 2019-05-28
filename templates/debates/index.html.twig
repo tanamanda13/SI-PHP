@@ -7,14 +7,22 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>debate title</th>
+      <th>Debate title</th>
+      <th>Category</th>
+      <th>Author</th>
+      <th>Created</th>
+      <th>Votes</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
   {% for debate in debates %}
   <tr>
-    <td>{{debate}}</td>
+    <td>{{debate.title}}</td>
+    <td>{{debate.category}}</td>
+    <td>{{debate.author}}</td>
+    <td>{{debate.created}}</td>
+    <td>{{debate.votes}}</td>
     <td>
       <a href="/debate/1" class="btn btn-dark">Show</a>
     </td>

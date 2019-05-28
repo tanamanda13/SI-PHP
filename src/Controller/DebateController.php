@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Debate;
+
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -13,7 +15,8 @@ class DebateController extends Controller {
   */
 
   public function index(){
-    $debates = ['Debate1', 'Debate2'];
+
+    $debates = $this->getDoctrine()->getRepository(Debate::class)->findAll();
 
     return $this->render('debates/index.html.twig', array('debates'=>$debates)); 
   }
