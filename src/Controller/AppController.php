@@ -9,22 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Post;
 use App\Form\PostType;
-use App\Repository\PostRepository;
 
 class AppController extends AbstractController
 {
     /**
-     * @Route("/app", name="app_index")
-     */
-    public function index()
-    {
-        return $this->render('app/index.html.twig', [
-            'user_name' => $this->getUser()->getuserName(),
-        ]);
-    }
-
-    /**
-     * @Route("/add", methods={"GET","POST"})
+     * @Route("/", name="app_index", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -40,10 +29,10 @@ class AppController extends AbstractController
             return $this->redirectToRoute('post_index');
         }
 
-        return $this->render('app/index2.html.twig', [
+        return $this->render('app/index.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
-            'controller_name' => 'Utilisateur',
+            'user_name' => $this->getUser()->getUserName(),
         ]);
     }
 
