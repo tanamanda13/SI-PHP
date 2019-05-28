@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AppController!{% endblock %}
+{# {% block title %}{{parent()}}{% endblock %} #}
 
 {% block body %}
 <style>
@@ -11,9 +11,9 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
+    Bienvenue sur notre merveilleux site !
     <ul>
-        <li>Your controller at <code><a href="{{ '/Users/pro-edwin/Desktop/Training/php-intensive-week/src/Controller/AppController.php'|file_link(0) }}">src/Controller/AppController.php</a></code></li>
+        <li>Your posts at <code><a href="{{path('post_index')}}">this link !</a></code></li>
         <li>Your template at <code><a href="{{ '/Users/pro-edwin/Desktop/Training/php-intensive-week/templates/app/index.html.twig'|file_link(0) }}">templates/app/index.html.twig</a></code></li>
     </ul>
 </div>
