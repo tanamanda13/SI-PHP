@@ -15,16 +15,7 @@ class Comment
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * TODO : lier a la table debate
-      */
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $debate_id;
-
+    
     /**
      * @ORM\Column(type="smallint")
      */
@@ -50,11 +41,27 @@ class Comment
      */
     private $votes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Debate", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $debate_id;
+
     public function getId(): ?int
     {
         return $this->id;
     }
+/* 
+    public function getDebateId(): ?int
+    {
+        return $this->debate_id;
+    }
 
+    public function setDebateId($debate_id): ?int
+    {   
+        $this->debate_id = $debate_id;
+    }
+ */
     public function getTitle(){
         return $this->title;
     }
@@ -63,21 +70,19 @@ class Comment
     }
     
     public function getContent(){
-        return $this->description;
+        return $this->content;
     }
 
-    public function setContent($description){
-        $this->description = $description;
+    public function setContent($content){
+        $this->content = $content;
     }
 
     public function getAuthor(){
         return $this->author;
     }
-    /**
-     * TODO: set author en fonction de l'utilisateur connecté
-      */
-    public function setAuthor($author){
-        $this->author = $author;
+
+    public function setAuthor(){
+       $this->author =  $this->getUser()->getPseudo();
     }
 
     public function getCreated(){
@@ -88,42 +93,23 @@ class Comment
         $this->created = new \DateTime("now");
     }
 
-    public function getSide1(){
-        return $this->side1;
+    public function getVotes(){
+        return $this->votes;
     }
 
-    public function setSide1($side1){
-        $this->side1 = $side1;
+    public function setVotes($votes){
+        $this->votes = $votes;
     }
 
-    public function getSide2(){
-        return $this->side2;
+    public function getDebateId(): ?Debate
+    {
+        return $this->debate_id;
     }
 
-    public function setSide2($side2){
-        $this->side2 = $side2;
-    }
+    public function setDebateId(?Debate $debate_id): self
+    {
+        $this->debate_id = $debate_id;
 
-    public function getSide1_votes(){
-        return $this->side1_votes;
-    }
-
-    public function setSide1_votes($side1_votes){
-        $this->side1_votes = $side1_votes;
-    }
-    public function getSide2_votes(){
-        return $this->side2_votes;
-    }
-
-    public function setSide2_votes($side2_votes){
-        $this->side2_votes = $side2_votes;
-    }
-
-    public function getTotal_votes(){
-        return $this->total_votes;
-    }
-
-    public function setTotal_votes($total_votes){
-        $this->total_votes = $total_votes;
+        return $this;
     }
 }

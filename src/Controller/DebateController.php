@@ -74,9 +74,8 @@ class DebateController extends AbstractController {
     $debate->setSide1_votes(0);
     $debate->setSide2_votes(0);
     $debate->setTotal_votes(0);
-
     //Met le pseudo de l'utilisateur actuel
-    $debate->setAuthor($this->getUser()->getPseudo());
+    $debate->setAuthor();
 
     $categories = ['Alimentation' => 'food', 'Science' => 'science', 'Sport' => 'sport', 'TV réalité' => 'tv', 'Style' => 'style', 'Voyage' => 'travel', 'Médecine' => 'medecine'];
 
