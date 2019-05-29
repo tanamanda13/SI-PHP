@@ -1,0 +1,11 @@
+{% extends 'base.html.twig'%}
+
+{% block title %} Test Debates{% endblock %}
+
+{% block body %}
+    <h1>Hello {{ username }}!</h1>
+
+    {% for post in posts %}
+        <div>{{post.title}}</div>
+    {% endfor %}
+{% endblock %}

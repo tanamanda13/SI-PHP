@@ -32,11 +32,11 @@ class DebateRepository extends ServiceEntityRepository
 
         return $qb;
     }
-    /*
-    public function findByExampleField($value)
+    
+    public function findByAuthor($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.author = :val')
             ->setParameter('val', $value)
             ->orderBy('d.id', 'ASC')
             ->setMaxResults(10)
@@ -44,7 +44,6 @@ class DebateRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Debate

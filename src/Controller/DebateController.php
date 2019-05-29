@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Knp\Component\Pager\PaginatorInterface;
+use App\Entity\User;
 
 class DebateController extends AbstractController {
   
@@ -137,5 +138,16 @@ class DebateController extends AbstractController {
     ];
 
     return $this->render('debates/show.html.twig', array('debate'=>$result)); 
+  }
+
+  /**
+   * @Route("/me", name="profile")
+   * @Method("GET")
+   */
+  public function profile(DebateRepository $debates){
+    return $this->render('debates/profile.html.twig', [
+      "username" => $this->getUser()->getPseudo(),
+      "posts" => $debates->findByAuthor($this->getUser()->getPseudo())
+    ]);
   }
 }
