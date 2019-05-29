@@ -17,5 +17,10 @@ a:hover {
 <h2>Votes : <span>{{debate.total_votes}}</span>
 <h3>Posted by <span>{{debate.author}}</span> ;  <span>{{debate.created}}</span></h3>
 <p>{{debate.description}}</p>
+<<<<<<< HEAD
 <a class="goBack" onclick="history.go(-1)">Go back</a>
+=======
+{% include "inc/comments.html.twig" %}
+<a href="/">Go back</a>
+>>>>>>> 687f42fba171a85f719f1b03870f4dba24b4339c
 {% endblock %}

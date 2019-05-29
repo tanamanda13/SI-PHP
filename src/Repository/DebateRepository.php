@@ -22,12 +22,12 @@ class DebateRepository extends ServiceEntityRepository
     // /**
     //  * @return Query
     //  */
-    public function findAllQuery()
+    public function findAllQuery($orderParam)
     {
         // automatically knows to select Products
         // the "p" is an alias you'll use in the rest of the query
         $qb = $this->createQueryBuilder('p')
-            ->orderBy('p.created', 'DESC')
+            ->orderBy('p.'.$orderParam, 'DESC')
             ->getQuery();
 
         return $qb;
@@ -42,6 +42,15 @@ class DebateRepository extends ServiceEntityRepository
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
+            ;
+    } 
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.category = :val')
+            ->setParameter('val', $value)
+            ->orderBy('d.created', 'DESC')
+            ->getQuery()
         ;
     }
 
