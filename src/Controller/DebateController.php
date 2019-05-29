@@ -10,10 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Components\Form\Extension\Core\Type\TextType;
-use Symfony\Components\Form\Extension\Core\Type\TextAreaType;
-use Symfony\Components\Form\Extension\Core\Type\SubmitType;
-use Symfony\Components\Form\Extension\Core\Type\ChoiceType;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class DebateController extends AbstractController {
   
@@ -22,6 +23,9 @@ class DebateController extends AbstractController {
   * @Method("GET")
   */
   public function index(Relativetime $relativetime, DebateRepository $debates){
+    /**
+     * TODO: échapper les données affichées
+      */
     /* $allDebates = findAll(''); */
     $limit = 5;
     $offset = 0;
@@ -48,19 +52,34 @@ class DebateController extends AbstractController {
   }
   /**
   * @Route("/debate/new", name="new_debate")
-  * @Method("GET", "POST)
+  * @Method({"GET", "POST"})
   */
   public function new(Request $request){
-    $debate = new Debate();
-    $categories = ['Alimentation', 'Science', 'Sport', 'TV réalité', 'Style', 'Voyage', 'Médecine'];
+    /**
+    * TODO: échapper les données affichées
+    */
 
-    $form = $this->createFormBuilder($article)
+    $debate = new Debate();
+    /**
+     * TODO: gérer la connexion et session et créer un UserController
+      */
+    /* $debate->setAuthor($this.getUser()); */$debate->setAuthor('michel');
+    //Met la date du moment
+    $debate->setCreated(new \DateTime());
+    //Met les votes à zéro
+    $debate->setSide1_votes(0);
+    $debate->setSide2_votes(0);
+    $debate->setTotal_votes(0);
+
+    $categories = ['Alimentation' => 'food', 'Science' => 'science', 'Sport' => 'sport', 'TV réalité' => 'tv', 'Style' => 'style', 'Voyage' => 'travel', 'Médecine' => 'medecine'];
+
+    $form = $this->createFormBuilder($debate)
       ->add('title', TextType::class, array('attr' => array('class' => 'form-control')))
-      ->add('description', TextType::class, array('attr' => array('class' => 'form-control')))
-      ->add('Side A', TextType::class, array('attr' => array('class' => 'form-control')))
-      ->add('Side B', TextType::class, array('attr' => array('class' => 'form-control')))
+      ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control')))
+      ->add('Side1', TextType::class, array('attr' => array('class' => 'form-control')))
+      ->add('Side2', TextType::class, array('attr' => array('class' => 'form-control')))
       ->add('Category', ChoiceType::class, array(
-        'attr' => array('class' => 'form-control'),
+        'attr' => array('class' => 'custom-select'),
         'placeholder' => 'Choose a category',
         'choices' => $categories
         ))
@@ -69,7 +88,24 @@ class DebateController extends AbstractController {
         'attr' => array('class' => 'btn btn-primary')
       ))
       ->getForm();
+
+    $form->handleRequest($request);
+        /**
+         * TODO:Ajouter une vraie vérification et échapper les données envoyées à la bdd
+          */
+    if($form->isSubmitted() && $form->isValid()) {
+      $debate = $form->getData();
+
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->persist($debate);
+      $entityManager->flush();
+
+      return $this->redirectToRoute('debate_list');
+    }
+
+    return $this->render('debates/new.html.twig', array('form' => $form->createView()));
   }
+
   /**
   * @Route("/debate/{id}", name="debate_show")
   * @Method("GET")

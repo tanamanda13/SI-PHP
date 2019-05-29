@@ -5,12 +5,13 @@ class Relativetime
 {
   
   public function time_elapsed_string($datetime, $full = false) {
-    $now = date_create("now");
-    $ago = date_create($datetime);
+    $now = new \DateTime();
+    $ago = new \DateTime($datetime);
     $diff = $now->diff($ago);
 
     $diff->w = floor($diff->d / 7);
     $diff->d -= $diff->w * 7;
+    if($diff->format('%R%') == '+') return 'just now';
 
     $string = array(
         'y' => 'year',

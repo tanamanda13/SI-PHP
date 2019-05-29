@@ -1,0 +1,10 @@
+{% extends 'base.html.twig'%}
+
+{% block title %}New Debate{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+<a href="/">Go back</a>
+{% endblock %}
