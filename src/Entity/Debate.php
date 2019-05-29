@@ -77,8 +77,6 @@ class Debate
         $this->comments = new ArrayCollection();
     }
 
-    
-    /* id, name, category, description, author, date_time, side1, side2, side1_votes, side2_votes, total_votes */
     /**
      * TODO: mettre des vérifications dans tous les setters
     */

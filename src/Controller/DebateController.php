@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\Debate;
+use App\Form\DebateFormType;
 use App\Service\Relativetime;
 use App\Repository\DebateRepository;
 
@@ -9,10 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
@@ -75,26 +72,9 @@ class DebateController extends AbstractController {
     $debate->setSide2_votes(0);
     $debate->setTotal_votes(0);
     //Met le pseudo de l'utilisateur actuel
-    $debate->setAuthor();
+    $debate->setAuthor($this->getUser()->getPseudo());
 
-    $categories = ['Alimentation' => 'food', 'Science' => 'science', 'Sport' => 'sport', 'TV réalité' => 'tv', 'Style' => 'style', 'Voyage' => 'travel', 'Médecine' => 'medecine'];
-
-    $form = $this->createFormBuilder($debate)
-      ->add('title', TextType::class, array('attr' => array('class' => 'form-control')))
-      ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control')))
-      ->add('Side1', TextType::class, array('attr' => array('class' => 'form-control')))
-      ->add('Side2', TextType::class, array('attr' => array('class' => 'form-control')))
-      ->add('Category', ChoiceType::class, array(
-        'attr' => array('class' => 'custom-select'),
-        'placeholder' => 'Choose a category',
-        'choices' => $categories
-        ))
-      ->add('save', SubmitType::class, array(
-        'label'=> 'Create',
-        'attr' => array('class' => 'btn btn-primary')
-      ))
-      ->getForm();
-
+    $form = $this->createForm(DebateFormType::class, $debate);
     $form->handleRequest($request);
         /**
          * TODO:Ajouter une vraie vérification et échapper les données envoyées à la bdd
