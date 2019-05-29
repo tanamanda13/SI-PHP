@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
+use Symfony\Component\DebateController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,7 +86,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+        return new RedirectResponse($this->urlGenerator->generate('debate_list'));
         throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

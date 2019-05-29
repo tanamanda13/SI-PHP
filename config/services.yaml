@@ -23,3 +23,6 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+        
+    # Token for remember me option
+    Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider: ~

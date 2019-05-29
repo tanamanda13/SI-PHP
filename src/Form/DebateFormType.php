@@ -18,7 +18,7 @@ class DebateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $categories = ['Alimentation' => 'food', 'Science' => 'science', 'Sport' => 'sport', 'TV réalité' => 'tv', 'Style' => 'style', 'Voyage' => 'travel', 'Médecine' => 'medecine'];
-        
+         `
         $builder
             ->add('title', TextType::class, array('attr' => array('class' => 'form-control')))
             ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control')))
