@@ -31,10 +31,6 @@ class DebateController extends AbstractController {
     
     $lastDebates = $paginator->paginate($debates->findAllQuery(),
     $request->query->getInt('page', 1),5);
-    /* $allDebates = findAll(''); */
-   /*  $limit = 5;
-    $offset = 0;
-    $lastDebates = $debates->findBy(array(), null, $limit, $offset);*/
     $results = [];
     foreach($lastDebates as $debate){
       $datetime = $debate->getCreated();
@@ -53,10 +49,11 @@ class DebateController extends AbstractController {
         'total_votes' => $debate->getTotal_votes()
       ];
     }
-    return $this->render('debates/index.html.twig', array('data' => 
+    return $this->render('debates/index.html.twig',
       ['debates' => $results,
-       'pagination'=> $lastDebates])); 
+       'pagination'=> $lastDebates]); 
   }
+    
   /**
   * @Route("/debate/new", name="new_debate")
   * @Method({"GET", "POST"})
