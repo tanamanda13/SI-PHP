@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Debate;
+use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,21 +13,18 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 
-class DebateFormType extends AbstractType
+
+class CommentFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $categories = ['Alimentation' => 'food', 'Science' => 'science', 'Sport' => 'sport', 'TV réalité' => 'tv', 'Style' => 'style', 'Voyage' => 'travel', 'Médecine' => 'medecine'];
-        
+    {   
+        $sides = [ $options['data']->getDebateId()->getSide1() => '1', $options['data']->getDebateId()->getSide2() => '2'];
         $builder
-            ->add('title', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control')))
-            ->add('Side1', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('Side2', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('Category', ChoiceType::class, array(
-                'attr' => array('class' => 'custom-select'),
-                'placeholder' => 'Choose a category',
-                'choices' => $categories
+            ->add('content', TextareaType::class, array('attr' => array('class' => 'form-check')))
+            ->add('agree', ChoiceType::class, array(
+                'attr' => array('class' => 'form-radio-input'),
+                'choices' => $sides,
+                'expanded' => 'true'
                 ))
             ->add('save', SubmitType::class, array(
                 'label'=> 'Create',
@@ -39,7 +36,7 @@ class DebateFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Debate::class,
+            'data_class' => Comment::class,
         ]);
     }
 }

@@ -15,7 +15,7 @@ class Comment
      * @ORM\Column(type="integer")
      */
     private $id;
-    
+
     /**
      * @ORM\Column(type="smallint")
      */
@@ -67,6 +67,13 @@ class Comment
     }
     public function setTitle($title){
         $this->title = $title;
+    }
+
+    public function getAgree(){
+        return $this->agree;
+    }
+    public function setAgree($agree){
+        $this->agree = $agree;
     }
     
     public function getContent(){

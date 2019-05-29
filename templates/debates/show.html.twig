@@ -7,5 +7,6 @@
 <h2>Votes : <span>{{debate.total_votes}}</span>
 <h3>Posted by <span>{{debate.author}}</span> ;  <span>{{debate.created}}</span></h3>
 <p>{{debate.description}}</p>
+{% include "inc/comments.html.twig" %}
 <a href="/">Go back</a>
 {% endblock %}

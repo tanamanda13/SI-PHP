@@ -4,6 +4,10 @@
 
 {% block body %}
 {% if debates %}
+<div class="btn-group" role="group" aria-label="Basic example">
+  <a href="/created"><button type="button" class="btn btn-secondary">New</button></a>
+  <a href="/total_votes"><button type="button" class="btn btn-secondary">Popular</button></a>
+</div>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -32,7 +36,7 @@
     <td>{{debate.created}}</td>
     <td>{{debate.total_votes}}</td>
     <td>
-      <a href="/debate/1" class="btn btn-dark">Show</a>
+      <a href="/debate/{{debate.id}}" class="btn btn-dark">Show</a>
     </td>
   </tr>
   {% endfor %}

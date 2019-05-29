@@ -22,29 +22,27 @@ class DebateRepository extends ServiceEntityRepository
     // /**
     //  * @return Query
     //  */
-    public function findAllQuery()
+    public function findAllQuery($orderParam)
     {
         // automatically knows to select Products
         // the "p" is an alias you'll use in the rest of the query
         $qb = $this->createQueryBuilder('p')
-            ->orderBy('p.created', 'DESC')
+            ->orderBy('p.'.$orderParam, 'DESC')
             ->getQuery();
 
         return $qb;
     }
-    /*
-    public function findByExampleField($value)
+    
+    public function findByCategory($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.category = :val')
             ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('d.created', 'DESC')
             ->getQuery()
-            ->getResult()
         ;
     }
-    */
+   
 
     /*
     public function findOneBySomeField($value): ?Debate
