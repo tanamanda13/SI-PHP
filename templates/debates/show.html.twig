@@ -1,11 +1,21 @@
 {% extends 'base.html.twig'%}
 
 {% block title %} Test Debates{% endblock %}
-
+{% block stylesheets %}
+<style>
+a.goBack {
+    cursor: pointer;
+    color: #038CBA !important;
+}
+a:hover {
+    text-decoration: underline !important;
+}
+</style>
+{% endblock %}
 {% block body %}
 <h1>{{debate.title}}</h1>
 <h2>Votes : <span>{{debate.total_votes}}</span>
 <h3>Posted by <span>{{debate.author}}</span> ;  <span>{{debate.created}}</span></h3>
 <p>{{debate.description}}</p>
-<a href="/">Go back</a>
+<a class="goBack" onclick="history.go(-1)">Go back</a>
 {% endblock %}

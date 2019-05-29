@@ -129,4 +129,36 @@ class DebateController extends AbstractController {
       "posts" => $debates->findByAuthor($this->getUser()->getPseudo())
     ]);
   }
+  /**
+   * @Route("/update", name="update_route")
+   * @Method("POST")
+   */
+  public function update(Request $request){
+    
+    // Json data
+    $id = $_POST['id'];
+    $side = $_POST['side'];
+    
+    // Get debate from database
+    $debate = $this->getDoctrine()
+    ->getRepository(Debate::class)
+    ->find($id);
+
+    // Changing votes value
+    if($side === "side1") {
+      $debateSide1 = $debate->getSide1_votes();
+      $debate->setSide1_votes(1 + $debateSide1);
+    } else {
+      $debateSide2 = $debate->getSide2_votes();
+      $debate->setSide2_votes(1 + $debateSide2);
+    }
+    $debate->setTotal_votes($debate->getSide1_votes()+$debate->getSide2_votes());
+    
+    // Database save
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($debate);
+    $entityManager->flush();    
+    
+    return new Response('Check out this great debate: '.$debate->getTitle());
+  }
 }

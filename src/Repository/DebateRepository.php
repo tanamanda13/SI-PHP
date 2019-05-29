@@ -38,8 +38,18 @@ class DebateRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
             ->andWhere('d.author = :val')
             ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
+            ->orderBy('d.id', 'DESC')
             ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findById($id)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult()
         ;

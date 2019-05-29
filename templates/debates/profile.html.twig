@@ -1,11 +1,93 @@
 {% extends 'base.html.twig'%}
 
-{% block title %} Test Debates{% endblock %}
-
+{% block title %}
+    My profile |
+    {{username}}
+{% endblock %}
+{% block stylesheets %}
+    <style>
+        .sides {
+            display: flex;
+            width: 100%;
+            justify-content: space-evenly;
+        }
+        h3 {
+            cursor: pointer;
+        }
+        .debate {
+            margin-top: 30px;
+            text-decoration: none;
+            background-color: #EEE;
+            color: gray;
+            padding: 10px;
+            position: relative;
+            border-radius: 8px;
+            height: auto;
+            width: auto;
+        }
+        .total {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        aside {
+            cursor: pointer;
+        }
+        p {
+            display: inline-block;
+        }
+    </style>
+{% endblock %}
 {% block body %}
-    <h1>Hello {{ username }}!</h1>
+    <h1>Hello
+        {{ username }}!</h1>
+    <hr>
+    <section class="activity">
+        <h2>Vos débats:</h2>
+        {% for post in posts %}
+            <div class="debate">
+                <h3 onclick="window.location.href='/debate/{{post.id}}'">{{post.title}}</h3>
+                <div class="total"><p>{{post.total_votes}}</p> vote{% if post.total_votes > 1 %}s{% endif %}</div>
+                <div class="sides">
+                    <aside class="side1" onclick="vote('side1', {{post.id}}, this)">{{post.side1}}
+                        -
+                        <p class="vote">{{post.side1_votes}}</p>
+                        vote{% if post.side1_votes > 1 %}s
+                        {% endif %}
+                    </aside>
+                    <aside class="side2" onclick="vote('side2', {{post.id}}, this)">{{post.side2}}
+                        -
+                        <p class="vote">{{post.side2_votes}}</p>
+                        vote{% if post.side2_votes > 1 %}s
+                        {% endif %}
+                    </aside>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
+    {% block javascripts %}
+    <script>
 
-    {% for post in posts %}
-        <div>{{post.title}}</div>
-    {% endfor %}
+    function vote(side, id, element) {
+        var formData = new FormData();
+        formData.append('id', id);
+        formData.append('side', side);
+        fetch('{{path('update_route')}}',{method: 'POST',body: formData})
+        .then(() => {
+
+            // Votes change
+            let vote = element.querySelector('.vote')
+            let number = Number(vote.innerHTML);
+            number += 1;
+            vote.innerHTML = number;
+
+            // Total change
+            let debate = element.closest('.debate');
+            let total = debate.querySelector('.total p');
+            number = Number(total.innerHTML);
+            total.innerHTML = number + 1;
+        })
+    }
+    </script>
+    {% endblock %}
 {% endblock %}
