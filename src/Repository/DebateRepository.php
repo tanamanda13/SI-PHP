@@ -20,8 +20,18 @@ class DebateRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Debate[] Returns an array of Debate objects
+    //  * @return Query
     //  */
+    public function findAllQuery()
+    {
+        // automatically knows to select Products
+        // the "p" is an alias you'll use in the rest of the query
+        $qb = $this->createQueryBuilder('p')
+            ->orderBy('p.created', 'DESC')
+            ->getQuery();
+
+        return $qb;
+    }
     /*
     public function findByExampleField($value)
     {

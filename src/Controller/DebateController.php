@@ -8,13 +8,15 @@ use App\Repository\DebateRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
+use Knp\Component\Pager\PaginatorInterface;
 
 class DebateController extends AbstractController {
   
@@ -22,14 +24,17 @@ class DebateController extends AbstractController {
   * @Route("/", name="debate_list")
   * @Method("GET")
   */
-  public function index(Relativetime $relativetime, DebateRepository $debates){
+  public function index(Request $request, PaginatorInterface $paginator,Relativetime $relativetime, DebateRepository $debates){
     /**
      * TODO: échapper les données affichées
-      */
+      */ 
+    
+    $lastDebates = $paginator->paginate($debates->findAllQuery(),
+    $request->query->getInt('page', 1),5);
     /* $allDebates = findAll(''); */
-    $limit = 5;
+   /*  $limit = 5;
     $offset = 0;
-    $lastDebates = $debates->findBy(array(), null, $limit, $offset);
+    $lastDebates = $debates->findBy(array(), null, $limit, $offset);*/
     $results = [];
     foreach($lastDebates as $debate){
       $datetime = $debate->getCreated();
@@ -48,7 +53,9 @@ class DebateController extends AbstractController {
         'total_votes' => $debate->getTotal_votes()
       ];
     }
-    return $this->render('debates/index.html.twig', array('debates'=>$results)); 
+    return $this->render('debates/index.html.twig', array('data' => 
+      ['debates' => $results,
+       'pagination'=> $lastDebates])); 
   }
   /**
   * @Route("/debate/new", name="new_debate")

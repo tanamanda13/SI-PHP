@@ -3,7 +3,7 @@
 {% block title %} Test Debates{% endblock %}
 
 {% block body %}
-{% if debates %}
+{% if data.debates %}
 <table class="table table-striped">
   <thead>
     <tr>
@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-  {% for debate in debates %}
+  {% for debate in data.debates %}
   <tr>
     <td>{{debate.title}}</td>
     <td>{{debate.side1}}</td>
@@ -41,4 +41,7 @@
 {% else %}
 <p>No debates</p>
 {% endif %}
+<div class="navigation">
+    {{ knp_pagination_render(data.pagination) }}
+</div>
 {% endblock %}
