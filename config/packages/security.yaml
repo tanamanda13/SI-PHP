@@ -15,14 +15,11 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-<<<<<<< HEAD
             remember_me:
                 secret:   '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 path:     /
                 token_provider: 'Symfony\Bridge\Doctrine\Security\RememberMe\DoctrineTokenProvider'
-=======
->>>>>>> ad2d568a389955102fbc039242182152c7f8c121
             logout:
                 path:   /logout
                 target: /
