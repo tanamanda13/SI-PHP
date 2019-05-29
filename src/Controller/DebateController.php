@@ -67,13 +67,16 @@ class DebateController extends AbstractController {
     /**
      * TODO: gérer la connexion et session et créer un UserController
       */
-    /* $debate->setAuthor($this.getUser()); */$debate->setAuthor('michel');
+    
     //Met la date du moment
     $debate->setCreated(new \DateTime());
     //Met les votes à zéro
     $debate->setSide1_votes(0);
     $debate->setSide2_votes(0);
     $debate->setTotal_votes(0);
+
+    //Met le pseudo de l'utilisateur actuel
+    $debate->setAuthor($this->getUser()->getPseudo());
 
     $categories = ['Alimentation' => 'food', 'Science' => 'science', 'Sport' => 'sport', 'TV réalité' => 'tv', 'Style' => 'style', 'Voyage' => 'travel', 'Médecine' => 'medecine'];
 
