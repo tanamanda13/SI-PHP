@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -65,8 +67,16 @@ class Debate
      */
     private $total_votes;
 
-    
-    /* id, name, category, description, author, date_time, side1, side2, side1_votes, side2_votes, total_votes */
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="debate_id", orphanRemoval=true)
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
+
     /**
      * TODO: mettre des vérifications dans tous les setters
     */
@@ -154,5 +164,36 @@ class Debate
 
     public function setTotal_votes($total_votes){
         $this->total_votes = $total_votes;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setDebateId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getDebateId() === $this) {
+                $comment->setDebateId(null);
+            }
+        }
+
+        return $this;
     }
 }
