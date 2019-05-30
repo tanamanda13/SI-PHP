@@ -33,6 +33,17 @@ class DebateRepository extends ServiceEntityRepository
         return $qb;
     }
     
+    public function findByAuthor($value)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.author = :val')
+            ->setParameter('val', $value)
+            ->orderBy('d.id', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+            ;
+    } 
     public function findByCategory($value)
     {
         return $this->createQueryBuilder('d')
@@ -42,7 +53,16 @@ class DebateRepository extends ServiceEntityRepository
             ->getQuery()
         ;
     }
-   
+
+    public function findById($id)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Debate
