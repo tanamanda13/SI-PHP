@@ -2,12 +2,9 @@
 
 {% block title %}Log in!{% endblock %}
 {% block stylesheets %}
-    <script async defer src="https://apis.google.com/js/platform.js"></script>
-    <meta content="138347717320-g874gff36iqccil3k6v35i0mae93ts05.apps.googleusercontent.com" name="google-signin-client_id">
 {% endblock %}
 
 {% block body %}
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
