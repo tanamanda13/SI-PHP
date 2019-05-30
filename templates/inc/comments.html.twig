@@ -1,4 +1,7 @@
 <h2>Commentaires</h2>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
 {% if comments %}
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -9,9 +12,6 @@
     <a class="dropdown-item" href="?sorting-by=popular">Popular</a>
   </div>
 </div>
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
   {% for comment in comments %}
   <div class="card bg-light mb-3" style="max-width: 50vw; min-width: 200px">
     <div class="card-header">
