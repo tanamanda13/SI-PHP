@@ -14,7 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security as coreSecurity;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 use Knp\Component\Pager\PaginatorInterface;
@@ -43,10 +45,7 @@ class DebateController extends AbstractController {
   * @Method("GET")
   */
   public function index($order, Request $request, PaginatorInterface $paginator, Relativetime $relativetime, DebateRepository $debates){
-    /**
-     * TODO: échapper les données affichées
-    */ 
-  
+
     $lastDebates = $paginator->paginate($debates->findAllQuery($order),
     $request->query->getInt('page', 1),5);
     $results = [];
@@ -92,16 +91,12 @@ public function search(DebateRepository $debates, Request $request, PaginatorInt
  * @Route("/debate/new", name="new_debate")
  * @Method({"GET", "POST"})
  */
-  public function new(Request $request){
-    /**
-     * TODO: échapper les données affichées
-     */
-    
+  public function new(Request $request, coreSecurity $security){
     $debate = new Debate();
-    /**
-     * TODO: gérer la connexion et session et créer un UserController
-     */
+    $user = $security->getUser();
     
+    //Met l'owner du debat
+    $debate->setOwner($user);
     //Met la date du moment
     $debate->setCreated(new \DateTime());
     //Met les votes à zéro
@@ -113,9 +108,7 @@ public function search(DebateRepository $debates, Request $request, PaginatorInt
     
     $form = $this->createForm(DebateFormType::class, $debate);
     $form->handleRequest($request);
-    /**
-     * TODO: Ajouter une vraie vérification et échapper les données envoyées à la bdd
-     */
+  
     if($form->isSubmitted() && $form->isValid()) {
       $debate = $form->getData();
       
@@ -198,11 +191,24 @@ public function search(DebateRepository $debates, Request $request, PaginatorInt
       array('debate'=>$result, 
       'form' => $form->createView(),
       'pagination' => $lastComments,
-      'comments' => $resultComment
+      'comments' => $resultComment,
+      'debateObj' => $debate
       )
     ); 
   }
   
+    /**
+   * @Route("/debate/{id}/delete", name="debate_delete")
+   * @Security("debate.isAuthor(user)")
+   */
+  public function delete(Debate $debate)
+  {
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->remove($debate);
+      $entityManager->flush();
+      return $this->redirectToRoute('debate_list');
+  }
+
   /**
    * @Route("/update", name="update_route")
    * @Method("POST")

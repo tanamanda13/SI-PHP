@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -18,6 +19,7 @@ class Comment
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\Choice({"1", "2"})
      */
     private $agree;
 
@@ -108,5 +110,5 @@ class Comment
         $this->debate = $debate;
 
         return $this;
-    }
+    } 
 }

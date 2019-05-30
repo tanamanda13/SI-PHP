@@ -5,9 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DebateRepository")
+ * @UniqueEntity("title",  message="This title is already used by another debate")
+ * 
  */
 class Debate
 {
@@ -76,6 +80,12 @@ class Debate
      * @ORM\OneToOne(targetEntity="App\Entity\Vote", mappedBy="debate", cascade={"persist", "remove"})
      */
     private $vote;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="debate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
 
     public function __construct()
     {
@@ -217,5 +227,27 @@ class Debate
         }
 
         return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Is the given User the author of this Post?
+     *
+     * @return bool
+     */
+    public function isAuthor(User $user = null)
+    {
+        return $user && $user->getPseudo() === $this->getOwner()->getPseudo();
     }
 }
