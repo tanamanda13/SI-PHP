@@ -72,6 +72,11 @@ class Debate
      */
     private $comments;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vote", mappedBy="debate", cascade={"persist", "remove"})
+     */
+    private $vote;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -192,6 +197,23 @@ class Debate
             if ($comment->getDebateId() === $this) {
                 $comment->setDebateId(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getVote(): ?Vote
+    {
+        return $this->vote;
+    }
+
+    public function setVote(Vote $vote): self
+    {
+        $this->vote = $vote;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $vote->getDebate()) {
+            $vote->setDebate($this);
         }
 
         return $this;

@@ -40,6 +40,11 @@ class User implements UserInterface
      */
     private $pseudo;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Vote", mappedBy="Author", cascade={"persist", "remove"})
+     */
+    private $vote;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -126,6 +131,23 @@ class User implements UserInterface
     public function setPseudo(string $pseudo): self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    public function getVote(): ?Vote
+    {
+        return $this->vote;
+    }
+
+    public function setVote(Vote $vote): self
+    {
+        $this->vote = $vote;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $vote->getAuthor()) {
+            $vote->setAuthor($this);
+        }
 
         return $this;
     }

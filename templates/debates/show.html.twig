@@ -1,23 +1,100 @@
 {% extends 'base.html.twig'%}
 
-{% block title %} Test Debates{% endblock %}
+{% block title %}
+    {{ debate.title }}
+{% endblock %}
+
 {% block stylesheets %}
-<style>
-a.goBack {
-    cursor: pointer;
-    color: #038CBA !important;
-}
-a:hover {
-    text-decoration: underline !important;
-}
-</style>
+    <style>
+        a.goBack {
+            cursor: pointer;
+            color: #038CBA !important;
+        }
+        a:hover {
+            text-decoration: underline !important;
+        }
+        .progress_labels {
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
 {% endblock %}
 {% block body %}
-<h1>{{debate.title}}</h1>
-<h2>Votes : <span>{{debate.total_votes}}</span>
-<h3>Posted by <span>{{debate.author}}</span> ;  <span>{{debate.created}}</span></h3>
-<p>{{debate.description}}</p>
-{% include "inc/comments.html.twig" %}
-<a class="goBack" onclick="history.go(-1)">Go back</a>
+    <h1>{{debate.title}}</h1>
+    <h2>Votes :
+        <span class="total">{{debate.total_votes}}</span>
+        <h3>Posted by
+            <span>{{debate.author}}</span>
+            ;
+            <span>{{debate.created}}</span>
+        </h3>
+        <div class="sides">
+            <aside class="side1" onclick="vote('side1', {{debate.id}}, this)">{{debate.side1}}
+                -
+                <p class="vote">{{debate.side1_votes}}</p>
+                vote{% if debate.side1_votes > 1 %}s
+                {% endif %}
+            </aside>
+            <aside class="side2" onclick="vote('side2', {{debate.id}}, this)">{{debate.side2}}
+                -
+                <p class="vote">{{debate.side2_votes}}</p>
+                vote{% if debate.side2_votes > 1 %}s
+                {% endif %}
+            </aside>
+        </div>
 
-{% endblock %}
+
+        <p>{{debate.description}}</p>
+        <div class="progress_labels">
+            <p>{{debate.side1}}</p>
+            <p>{{debate.side2}}</p>
+        </div>
+        <div class="progress">
+            <div id="side1" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar" role="progressbar" style="width: 0%"></div>
+            <div id="side2" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress-bar bg-danger" role="progressbar" style="width: 0%"></div>
+            
+        </div>
+
+        {% include "inc/comments.html.twig" %}
+        <a class="goBack" onclick="history.go(-1)">Go back</a>
+
+        {% block javascripts %}
+            <script>
+                function progressHandle() {
+                    let progressSide1 = document.querySelector('#side1');
+                    let progressSide2 = document.querySelector('#side2');
+                    let value = Math.ceil({{debate.side1_votes}} / {{debate.total_votes}} * 100);
+
+                    progressSide1.style.width = value +'%';
+                    progressSide2.style.width = 100 - value +'%';
+                    progressSide2.setAttribute('aria-valuenow',{{ debate.side2_votes }}+'%');
+                }
+                setTimeout(progressHandle(), 100);
+                function vote(side, id, element) {
+                    var formData = new FormData();
+                    formData.append('id', id);
+                    formData.append('side', side);
+                    fetch('{{ path("update_route") }}', {
+
+                        method: 'POST',
+                        body: formData
+                    }).then(() => { // Votes change
+                        progressHandle
+                        let vote = element.querySelector('.vote')
+                        let number = Number(vote.innerHTML);
+                        number += 1;
+                        vote.innerHTML = number;
+
+                        // Total change
+                        let debate = element.closest('.debate');
+                        let total = document.querySelector('.total');
+                        number = Number(total.innerHTML);
+                        total.innerHTML = number + 1;
+                    })
+                }
+            </script>
+        {% endblock %}
+
+
+    {% endblock %}

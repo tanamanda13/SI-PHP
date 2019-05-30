@@ -151,7 +151,9 @@ class DebateController extends AbstractController {
     
     if($form->isSubmitted() && $form->isValid()) {
       $comment = $form->getData();
-
+      if( $comment->getAgree() == 1) $debate->setside1_votes($debate->getSide1_votes() + 1);
+      else if($comment->getAgree() == 2) $debate->setSide2_votes($debate->getSide2_votes() + 1);
+      $debate->setTotal_votes($debate->getTotal_votes() + 1);
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->persist($comment);
       $entityManager->flush();

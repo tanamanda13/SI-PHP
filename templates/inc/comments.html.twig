@@ -9,6 +9,9 @@
     <a class="dropdown-item" href="?sorting-by=popular">Popular</a>
   </div>
 </div>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
   {% for comment in comments %}
   <div class="card bg-light mb-3" style="max-width: 50vw; min-width: 200px">
     <div class="card-header">
@@ -28,6 +31,3 @@
 {% else %}
 <p>No comments yet !</p>
 {% endif %}
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
