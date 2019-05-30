@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190529105749 extends AbstractMigration
+final class Version20190529162113 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,7 @@ final class Version20190529105749 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE comment CHANGE debate_id debate_id_id INT NOT NULL');
-        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C5A22C588 FOREIGN KEY (debate_id_id) REFERENCES debate (id)');
-        $this->addSql('CREATE INDEX IDX_9474526C5A22C588 ON comment (debate_id_id)');
+        $this->addSql('ALTER TABLE comment RENAME INDEX idx_9474526c5a22c588 TO IDX_9474526C39A6B6F6');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +30,6 @@ final class Version20190529105749 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE comment DROP FOREIGN KEY FK_9474526C5A22C588');
-        $this->addSql('DROP INDEX IDX_9474526C5A22C588 ON comment');
-        $this->addSql('ALTER TABLE comment CHANGE debate_id_id debate_id INT NOT NULL');
+        $this->addSql('ALTER TABLE comment RENAME INDEX idx_9474526c39a6b6f6 TO IDX_9474526C5A22C588');
     }
 }

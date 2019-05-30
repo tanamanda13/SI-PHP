@@ -102,18 +102,25 @@ class DebateController extends AbstractController {
     
     $debate = $debates->find($id);
     $comment = new Comment();
+   
     $comment->setDebateId($debate);
+
+    $comment->setCreated();
+    $comment->setVotes(0);
+    $comment->setAuthor($this->getUser()->getPseudo());
+    
+
     $form = $this->createForm(CommentFormType::class, $comment);
     $form->handleRequest($request);
 
     if($form->isSubmitted() && $form->isValid()) {
-      $debate = $form->getData();
+      $comment = $form->getData();
 
       $entityManager = $this->getDoctrine()->getManager();
-      $entityManager->persist($debate);
+      $entityManager->persist($comment);
       $entityManager->flush();
 
-      return $this->redirectToRoute('debate_show');
+      return $this->redirectToRoute('debate_show/'.$id);
     }
 
     $datetime = $debate->getCreated();

@@ -45,23 +45,13 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\Debate", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $debate_id;
+    private $debate;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-/* 
-    public function getDebateId(): ?int
-    {
-        return $this->debate_id;
-    }
 
-    public function setDebateId($debate_id): ?int
-    {   
-        $this->debate_id = $debate_id;
-    }
- */
     public function getTitle(){
         return $this->title;
     }
@@ -88,15 +78,15 @@ class Comment
         return $this->author;
     }
 
-    public function setAuthor(){
-       $this->author =  $this->getUser()->getPseudo();
+    public function setAuthor($author){
+       $this->author = $author;
     }
 
     public function getCreated(){
         return date_format($this->created, 'Y-m-d H:i:s');
     }
 
-    public function setCreated($created){
+    public function setCreated(){
         $this->created = new \DateTime("now");
     }
 
@@ -108,14 +98,14 @@ class Comment
         $this->votes = $votes;
     }
 
-    public function getDebateId(): ?Debate
+    public function getDebate(): ?Debate
     {
-        return $this->debate_id;
+        return $this->debate;
     }
 
-    public function setDebateId(?Debate $debate_id): self
+    public function setDebate(?Debate $debate): self
     {
-        $this->debate_id = $debate_id;
+        $this->debate = $debate;
 
         return $this;
     }

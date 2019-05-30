@@ -68,7 +68,7 @@ class Debate
     private $total_votes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="debate_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="debate", orphanRemoval=true)
      */
     private $comments;
 

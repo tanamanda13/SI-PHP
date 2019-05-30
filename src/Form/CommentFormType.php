@@ -27,7 +27,7 @@ class CommentFormType extends AbstractType
                 'expanded' => 'true'
                 ))
             ->add('save', SubmitType::class, array(
-                'label'=> 'Create',
+                'label'=> 'Send',
                 'attr' => array('class' => 'btn btn-primary')
             ))
             ;
