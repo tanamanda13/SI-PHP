@@ -71,11 +71,27 @@ class DebateController extends AbstractController {
       ['debates' => $results,
        'pagination'=> $lastDebates]); 
   }
+ /**
+  * 
+  * @Route ("/search", name = "home_search")
+  */
+public function search(DebateRepository $debates, Request $request, PaginatorInterface $paginator) {
+  $toSearch = $_POST['search'];
+
   
-  /**
-   * @Route("/debate/new", name="new_debate")
-   * @Method({"GET", "POST"})
-   */
+  $lastDebates = $paginator->paginate( $debates->findLikeTitle($toSearch), $request->query->getInt('page', 1),5);
+
+  $results = $debates->findLikeTitle($toSearch);
+  return $this->render('debates/index.html.twig', [
+    'debates' => $results,
+    'pagination' => $lastDebates
+  ]);
+}
+
+/**
+ * @Route("/debate/new", name="new_debate")
+ * @Method({"GET", "POST"})
+ */
   public function new(Request $request){
     /**
      * TODO: échapper les données affichées

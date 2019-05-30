@@ -54,6 +54,16 @@ class DebateRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findLikeTitle($search)
+    {
+        return $this->createQueryBuilder('debate')
+                ->andWhere('debate.title LIKE :search OR debate.author LIKE :search')
+                ->setParameter('search', '%' . $search . '%')
+                ->getQuery()
+                ->getResult()
+            ;        
+    }
+
     public function findById($id)
     {
         return $this->createQueryBuilder('d')
@@ -63,6 +73,7 @@ class DebateRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
 
     /*
     public function findOneBySomeField($value): ?Debate

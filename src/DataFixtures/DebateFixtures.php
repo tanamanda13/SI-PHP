@@ -25,7 +25,7 @@ class DebateFixtures extends Fixture
             $debate->setcreated($faker->dateTimeBetween('-30 years', 'now', null));
             $debate->setSide1_votes($faker->numberBetween(1000, 9000));
             $debate->setSide2_votes($faker->numberBetween(1000, 9000));
-            $debate->settotal_votes($faker->numberBetween(1000, 9000));
+            $debate->settotal_votes($debate->getSide1_votes()+$debate->getSide2_votes());
             $manager->persist($debate);
         }
         $manager->flush();
