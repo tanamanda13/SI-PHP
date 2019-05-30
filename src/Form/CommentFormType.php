@@ -18,7 +18,7 @@ class CommentFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {   
-        $sides = [ $options['data']->getDebateId()->getSide1() => '1', $options['data']->getDebateId()->getSide2() => '2'];
+        $sides = [ $options['data']->getDebate()->getSide1() => '1', $options['data']->getDebate()->getSide2() => '2'];
         $builder
             ->add('content', TextareaType::class, array('attr' => array('class' => 'form-check')))
             ->add('agree', ChoiceType::class, array(
