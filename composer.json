@@ -6,6 +6,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "knplabs/knp-paginator-bundle": "^3.0",
+        "knpuniversity/oauth2-client-bundle": "^1.28",
+        "league/oauth2-google": "^3.0",
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/console": "4.2.*",
         "symfony/dotenv": "4.2.*",
@@ -67,6 +69,9 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.1",
         "fzaninotto/faker": "^1.8",
+        "symfony/browser-kit": "4.2.*",
+        "symfony/css-selector": "4.2.*",
+        "symfony/phpunit-bridge": "4.2.*",
         "symfony/profiler-pack": "^1.0"
     }
 }
