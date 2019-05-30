@@ -126,7 +126,7 @@ public function search(DebateRepository $debates, Request $request, PaginatorInt
    * @Route("/debate/{id}", name="debate_show")
    * @Method({"GET", "POST"})
    */
-  public function show($id, Relativetime $relativetime, CommentRepository $commentRepo, DebateRepository $debates, Request $request, PaginatorInterface $paginator){
+  public function show($id, Relativetime $relativetime, CommentRepository $commentRepo, DebateRepository $debates, Request $request, PaginatorInterface $paginator, coreSecurity $security){
     
     $debate = $debates->find($id);
 
@@ -141,16 +141,20 @@ public function search(DebateRepository $debates, Request $request, PaginatorInt
       $datetimeComment = $comment->getCreated();
       $processed = $relativetime->time_elapsed_string($datetimeComment);
       $resultComment[] = [
+        'id' => $comment->getId(),
         'side' => $side,
         'author' => $comment->getAuthor(),
         'content' => $comment->getContent(),
         'created' => $processed,
         'votes' => $comment->getVotes(),
+        'reference' => $comment
       ];
     }
     //Gère le formulaire du commentaire
+    $user = $security->getUser();
     $comment = new Comment();
     $comment->setDebate($debate);
+    $comment->setOwner($user);
     $comment->setCreated();
     $comment->setVotes(0);
     $comment->setAuthor($this->getUser()->getPseudo());
@@ -201,13 +205,26 @@ public function search(DebateRepository $debates, Request $request, PaginatorInt
    * @Route("/debate/{id}/delete", name="debate_delete")
    * @Security("debate.isAuthor(user)")
    */
-  public function delete(Debate $debate)
+  public function deleteDebate(Debate $debate)
   {
       $entityManager = $this->getDoctrine()->getManager();
       $entityManager->remove($debate);
       $entityManager->flush();
       return $this->redirectToRoute('debate_list');
   }
+  
+    /**
+   * @Route("/comment/{id}/delete", name="comment_delete")
+   * @Security("comment.isAuthor(user)")
+   */
+  public function deleteComment(Comment $comment)
+  {
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->remove($comment);
+      $entityManager->flush();
+      return $this->redirectToRoute('debate_show', ['id' => $comment->getDebate()->getId()]);
+  }
+
 
   /**
    * @Route("/update", name="update_route")

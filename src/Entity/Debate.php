@@ -127,9 +127,7 @@ class Debate
     public function getAuthor(){
         return $this->author;
     }
-    /**
-     * TODO: set author en fonction de l'utilisateur connecté
-      */
+
     public function setAuthor($author){
         $this->author = $author;
     }
@@ -242,7 +240,7 @@ class Debate
     }
 
     /**
-     * Is the given User the author of this Post?
+     * Is the given User the author of this Debate?
      *
      * @return bool
      */
