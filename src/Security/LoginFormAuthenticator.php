@@ -87,11 +87,15 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         }
 
         return new RedirectResponse($this->urlGenerator->generate('debate_list'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        throw new \Exception('TODO: provide a valid redirect inside ' . __FILE__);
     }
 
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate('app_login');
+    }
+    protected function getUrlUser()
+    {
+        return $this->urlGeneratorInterface();
     }
 }

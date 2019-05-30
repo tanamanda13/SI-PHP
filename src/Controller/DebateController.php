@@ -157,9 +157,9 @@ class DebateController extends AbstractController {
    * @Route("/update", name="update_route")
    * @Method("POST")
    */
-  public function update(Request $request){
+  public function update(){
     
-    // Json data
+    // Ajax data
     $id = $_POST['id'];
     $side = $_POST['side'];
     
@@ -168,7 +168,7 @@ class DebateController extends AbstractController {
     ->getRepository(Debate::class)
     ->find($id);
     
-    // Changing votes value
+    // Changing votes values
     if($side === "side1") {
       $debateSide1 = $debate->getSide1_votes();
       $debate->setSide1_votes(1 + $debateSide1);

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace DoctrineMigrations;
 
@@ -12,23 +12,24 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20190529171320 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE rememberme_token');
-        $this->addSql('ALTER TABLE comment ADD debate_id_id INT NOT NULL, ADD agree SMALLINT NOT NULL, ADD author TINYTEXT NOT NULL, ADD content LONGTEXT NOT NULL, ADD created DATETIME NOT NULL, ADD votes INT NOT NULL');
-        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C5A22C588 FOREIGN KEY (debate_id_id) REFERENCES debate (id)');
-        $this->addSql('CREATE INDEX IDX_9474526C5A22C588 ON comment (debate_id_id)');
+        $this->assSql('CREATE TABLE `rememberme_token ` (`series `   char (88)     UNIQUE PRIMARY KEY NOT NULL,`value `    char (88)     NOT NULL,`lastUsed ` datetime     NOT NULL, `class `    varchar (100) NOT NULL, `username ` varchar (200) NOT NULL)');
+        $this->addSql('ALTER TABLE comment ADD debate_id INT NOT NULL, ADD agree SMALLINT NOT NULL, ADD author TINYTEXT NOT NULL, ADD content LONGTEXT NOT NULL, ADD created DATETIME NOT NULL, ADD votes INT NOT NULL');
+        $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C5A22C588 FOREIGN KEY (debate_id) REFERENCES debate (id)');
+        $this->addSql('CREATE INDEX IDX_9474526C5A22C588 ON comment (debate_id)');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
