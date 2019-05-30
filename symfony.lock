@@ -175,6 +175,9 @@
     "symfony/event-dispatcher": {
         "version": "v4.2.8"
     },
+    "symfony/expression-language": {
+        "version": "v4.2.9"
+    },
     "symfony/filesystem": {
         "version": "v4.2.8"
     },
@@ -283,15 +286,6 @@
         "files": [
             "config/packages/security.yaml"
         ]
-    },
-    "symfony/security-core": {
-        "version": "v4.2.9"
-    },
-    "symfony/security-csrf": {
-        "version": "v4.2.9"
-    },
-    "symfony/security-guard": {
-        "version": "v4.2.9"
     },
     "symfony/security-http": {
         "version": "v4.2.9"

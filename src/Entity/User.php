@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,6 +48,16 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity="App\Entity\Vote", mappedBy="Author", cascade={"persist", "remove"})
      */
     private $vote;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Debate", mappedBy="owner", orphanRemoval=true)
+     */
+    private $debate;
+
+    public function __construct()
+    {
+        $this->debate = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -149,6 +161,37 @@ class User implements UserInterface
         // set the owning side of the relation if necessary
         if ($this !== $vote->getAuthor()) {
             $vote->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Debate[]
+     */
+    public function getDebate(): Collection
+    {
+        return $this->debate;
+    }
+
+    public function addDebate(Debate $debate): self
+    {
+        if (!$this->debate->contains($debate)) {
+            $this->debate[] = $debate;
+            $debate->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDebate(Debate $debate): self
+    {
+        if ($this->debate->contains($debate)) {
+            $this->debate->removeElement($debate);
+            // set the owning side to null (unless already changed)
+            if ($debate->getOwner() === $this) {
+                $debate->setOwner(null);
+            }
         }
 
         return $this;

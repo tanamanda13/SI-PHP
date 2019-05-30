@@ -110,5 +110,5 @@ class Comment
         $this->debate = $debate;
 
         return $this;
-    }
+    } 
 }

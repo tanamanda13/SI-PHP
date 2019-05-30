@@ -81,6 +81,12 @@ class Debate
      */
     private $vote;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="debate")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -221,5 +227,27 @@ class Debate
         }
 
         return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Is the given User the author of this Post?
+     *
+     * @return bool
+     */
+    public function isAuthor(User $user = null)
+    {
+        return $user && $user->getPseudo() === $this->getOwner()->getPseudo();
     }
 }
