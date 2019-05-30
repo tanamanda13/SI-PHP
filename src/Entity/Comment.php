@@ -19,6 +19,7 @@ class Comment
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\Choice({"1", "2"})
      */
     private $agree;
 
