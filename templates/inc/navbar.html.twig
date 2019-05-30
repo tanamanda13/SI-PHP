@@ -4,7 +4,8 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
     <span class="navbar-toggle-icon"></span>
   </button>
-
+ {#  {% if path(app.request.attributes.get('_route')) matches '@\b\/(?!login|register)@'%} #}
+ {% if 'login' not in path(app.request.attributes.get('_route')) and 'register' not in path(app.request.attributes.get('_route')) %}
   <div class="collapse navbar-collapse" id="mobile-nav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
@@ -21,5 +22,6 @@
       </li>
     </ul>
   </div>
+  {% endif %}
 </div>
 </nav>
