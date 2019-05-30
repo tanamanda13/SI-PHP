@@ -236,4 +236,22 @@ public function search(DebateRepository $debates, Request $request, PaginatorInt
     return new Response('Check out this great debate: '.$debate->getTitle());
   }
 
+  /**
+   * @Route("/comment", name="comment_upvote")
+   */
+  public function upVoteComment() {
+    $content = $_POST['content'];
+    
+    $comment = $this->getDoctrine()
+    ->getRepository(Comment::class)
+    ->findByContent($content);
+    $comment[0]->setVotes( $comment[0]->getVotes() + 1);
+
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($comment[0]);
+    $entityManager->flush();
+
+    return new Response('Check out this great comment: ' . $comment[0]->getContent());
+  }
+
 }

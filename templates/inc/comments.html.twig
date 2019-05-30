@@ -13,11 +13,12 @@
   </div>
 </div>
   {% for comment in comments %}
-  <div class="card bg-light mb-3" style="max-width: 50vw; min-width: 200px">
+  <div class="container card bg-light mb-3" style="max-width: 50vw; min-width: 200px">
     <div class="card-header">
     <h4>{{comment.author}}</h4>
     <span>{{comment.created}}</span>
-    <span>{{comment.votes}}</span>
+    <span class="comment_votes">{{comment.votes}}</span>
+    <a onclick="ajaxUpvote('{{comment.content}}', this)" class="nav_link">Vote for this</a>
     </div>
     <div class="card-body">
       <h5 class="card-title">{{comment.side}}</h5>
@@ -28,6 +29,19 @@
   <div class="navigation">
     {{ knp_pagination_render(pagination) }}
   </div>
+  <script>
+  function ajaxUpvote(content,element) {
+        var formData = new FormData();
+        formData.append('content', content);
+        fetch('{{path('comment_upvote')}}',{method: 'POST',body: formData})
+        .then(() => {
+          let closest = element.closest('.container')
+          let votes = closest.querySelector('.comment_votes');
+          let number = Number(votes.innerHTML) + 1;
+          votes.innerHTML = number;
+        })
+    }
+  </script>
 {% else %}
 <p>No comments yet !</p>
 {% endif %}
