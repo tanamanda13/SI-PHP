@@ -129,7 +129,7 @@
                     <div class="progress-bar" id="side2" style="width: 50%">{{debate.side2}}</div>
                 </div>
                 <div class="votes">
-<div class="vote upvote" onclick="vote('side1', {{debate.id}}, this)">
+                  <div class="vote upvote" onclick="vote('side1', {{debate.id}}, this)">
 
                         <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_i)">
@@ -150,7 +150,7 @@
                         </svg>
                         <p>{{ debate.side1_votes }}</p>
                     </div>
-<div class="vote downvote" onclick="vote('side2', {{debate.id}}, this)">
+                      <div class="vote downvote" onclick="vote('side2', {{debate.id}}, this)">
 
                         <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
                             <g filter="url(#filter0_i)">
@@ -172,7 +172,7 @@
                         <p>{{ debate.side2_votes }}</p>
                     </div>
                 </div>
-            </div>
+          </div>
         {% endfor %}
     {% else %}
         <p>No debates</p>
