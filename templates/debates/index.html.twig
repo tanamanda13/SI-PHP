@@ -1,222 +1,249 @@
 {% extends 'base.html.twig'%}
 
 {% block title %}
-    Home
+  Home
 {% endblock %}
 {% block stylesheets%}
-    <style>
-        .texts {
-            margin-left: 0.5rem;
-        }
-        .text {
-            background: none;
-            color: #000;
-            padding: 0.3rem;
-            margin: 0;
-        }
-        .btn-group {
-            display: flex;
-            align-items: center;
-            margin: 1rem 0;
-        }
-        .progress_labels {
-            display: flex;
-            justify-content: space-between;
-        }
+  <style>
+    .texts {
+      margin-left: 0.5rem;
+    }
+    .text {
+      background: none;
+      color: #000;
+      padding: 0.3rem;
+      margin: 0;
+    }
+    .btn-group {
+      display: flex;
+      align-items: center;
+      margin: 1rem 0;
+    }
+    .progress_labels {
+      display: flex;
+      justify-content: space-between;
+    }
 
-        .progress {
-            height: 20px;
-            background: #eee;
-            display: flex;
-        }
-        #side1 {
-            background-color: #000;
-            color: #20E3B2;
-            height: 20px;
-            text-align: center;
-        }
-        #side2 {
-            background-color: #20E3B2;
-            color: #000;
-            height: 20px;
-            text-align: center;
-        }
-        .debate {
-            background: #faf9f9;
-            border-radius: 30px;
-            border: 2px solid #eee;
-            padding: 0 1.5rem 1.5rem;
-            margin: 1rem 0;
-        }
-        .debate__header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-        }
-        .debate__subheader {
-            display: flex;
-            align-items: center;
-        }
-        .debate__subsubheader {
-            margin-left: 0.6rem;
-        }
-        .category {
-            background-color: #fff;
-            border-radius: 20px;
-            padding: 0.5rem;
-            border: 1px solid #eee;
-        }
-        .votes {
-            margin-top: 1.5rem;
-        }
-        .vote {
-            margin: 0 0.4rem;
-        }
-        .votes,
-        .vote {
-            display: flex;
-            align-items: flex-end;
-        }
-        .vote p {
-            margin: 0;
-        }
-        .page-link {
-            color: #20E3B2;
-        }
-        .page-item.active .page-link {
-            background-color: #20E3B2;
-            color: #000;
-            border-color: #20E3B2;
-        }
-    </style>
+    .progress {
+      height: 20px;
+      background: #eee;
+      display: flex;
+    }
+    #side1 {
+      background-color: #000;
+      color: #20E3B2;
+      height: 20px;
+      text-align: center;
+    }
+    #side2 {
+      background-color: #20E3B2;
+      color: #000;
+      height: 20px;
+      text-align: center;
+    }
+    .debate {
+      background: #faf9f9;
+      border-radius: 30px;
+      border: 2px solid #eee;
+      padding: 0 1.5rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .debate__header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .debate__subheader {
+      display: flex;
+      align-items: center;
+    }
+    .debate__subsubheader {
+      margin-left: 0.6rem;
+    }
+    .category {
+      background-color: #fff;
+      border-radius: 20px;
+      padding: 0.5rem;
+      border: 1px solid #eee;
+    }
+    .votes {
+      margin-top: 1.5rem;
+    }
+    .vote {
+      margin: 0 0.4rem;
+    }
+    .votes,
+    .vote {
+      display: flex;
+      align-items: flex-end;
+    }
+    .vote p {
+      margin: 0;
+    }
+    .page-link {
+      color: #20E3B2;
+    }
+    .page-item.active .page-link {
+      background-color: #20E3B2;
+      color: #000;
+      border-color: #20E3B2;
+    }
+
+    .overhead-menu select {
+      display: inline;
+      vertical-align: bottom;
+      align-items: flex-end;
+      justify-content: center;
+    }
+  </style>
 {% endblock %}
 {% block body %}
-    {% if debates %}
+  {% if debates %}
 
-        <div aria-label="Basic example" class="btn-group" role="group">
-            <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 10H20.5V10.5V23.5H18.5V10.5V10H18H17.625C17.2824 10 17 9.71761 17 9.375V5.625C17 5.28239 17.2824 5 17.625 5H18H18.5V4.5V0.5H20.5V4.5V5H21H21.375C21.7176 5 22 5.28239 22 5.625V9.375C22 9.71761 21.7176 10 21.375 10H21ZM18 5.5H17.5V6V9V9.5H18H21H21.5V9V6V5.5H21H18ZM13 13.5V14H13.5H13.875C14.2176 14 14.5 14.2824 14.5 14.625V18.375C14.5 18.7176 14.2176 19 13.875 19H13.5H13V19.5V23.5H11V19.5V19H10.5H10.125C9.78239 19 9.5 18.7176 9.5 18.375V14.625C9.5 14.2824 9.78239 14 10.125 14H10.5H11V13.5V0.5H13V13.5ZM10.5 14.5H10V15V18V18.5H10.5H13.5H14V18V15V14.5H13.5H10.5ZM5.5 4.5V5H6H6.375C6.71761 5 7 5.28239 7 5.625V9.375C7 9.71761 6.71761 10 6.375 10H6H5.5V10.5V23.5H3.5V10.5V10H3H2.625C2.28239 10 2 9.71761 2 9.375V5.625C2 5.28239 2.28239 5 2.625 5H3H3.5V4.5V0.5H5.5V4.5ZM3 5.5H2.5V6V9V9.5H3H6H6.5V9V6V5.5H6H3Z" fill="#20E3B2" stroke="black"/>
-            </svg>
-            <div class="texts">
-                <a href="/home/created">
-                    <button class="text" type="button">Recent</button>
-                </a>
-                <button class="text">|</button>
-                <a href="/home/total_votes">
-                    <button class="text" type="button">Popular</button>
-                </a>
-            </div>
+    <div aria-label="Basic example" class="btn-group" role="group">
+      <svg fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 10H20.5V10.5V23.5H18.5V10.5V10H18H17.625C17.2824 10 17 9.71761 17 9.375V5.625C17 5.28239 17.2824 5 17.625 5H18H18.5V4.5V0.5H20.5V4.5V5H21H21.375C21.7176 5 22 5.28239 22 5.625V9.375C22 9.71761 21.7176 10 21.375 10H21ZM18 5.5H17.5V6V9V9.5H18H21H21.5V9V6V5.5H21H18ZM13 13.5V14H13.5H13.875C14.2176 14 14.5 14.2824 14.5 14.625V18.375C14.5 18.7176 14.2176 19 13.875 19H13.5H13V19.5V23.5H11V19.5V19H10.5H10.125C9.78239 19 9.5 18.7176 9.5 18.375V14.625C9.5 14.2824 9.78239 14 10.125 14H10.5H11V13.5V0.5H13V13.5ZM10.5 14.5H10V15V18V18.5H10.5H13.5H14V18V15V14.5H13.5H10.5ZM5.5 4.5V5H6H6.375C6.71761 5 7 5.28239 7 5.625V9.375C7 9.71761 6.71761 10 6.375 10H6H5.5V10.5V23.5H3.5V10.5V10H3H2.625C2.28239 10 2 9.71761 2 9.375V5.625C2 5.28239 2.28239 5 2.625 5H3H3.5V4.5V0.5H5.5V4.5ZM3 5.5H2.5V6V9V9.5H3H6H6.5V9V6V5.5H6H3Z" fill="#20E3B2" stroke="black"/>
+      </svg>
+      <div class="overhead-menu">
+        <div class="texts">
+          <a href="/home/created">
+            <button class="text" type="button">Recent</button>
+          </a>
+          <button class="text">|</button>
+          <a href="/home/total_votes">
+            <button class="text" type="button">Popular</button>
+          </a>
         </div>
-        {% for debate in debates %}
-            <div class="debate">
-                <a href="/debate/{{debate.id}}">
-                    <div class="debate__header">
-                        <div class="debate__subheader">
-                            <h3>{{debate.title}}</h3>
-                            <div class="debate__subsubheader">
-                                <span>by
-                                    {{debate.author}}
-                                    ·
-                                </span>
-                                <span>{{debate.created}}</span>
-                            </div>
-                        </div>
-                        <h4 class="category">{{debate.category}}</h4>
-                    </div>
-                </a>
-                <div class="progress">
-                    <div class="progress-bar" id="side1" style="width: 50%">{{debate.side1}}</div>
-                    <div class="progress-bar" id="side2" style="width: 50%">{{debate.side2}}</div>
-                </div>
-                <div class="votes">
-<div class="vote upvote" onclick="vote('side1', {{debate.id}}, this)">
+        <form action="http://www.monsite.net/redirection_navigation.php" method="post">
+          <p>
 
-                        <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
-                            <g filter="url(#filter0_i)">
-                                <path d="M6.66048 0.509417C6.29358 0.212377 5.76892 0.212377 5.40202 0.509417L1.19521 3.9152C0.462788 4.50817 0.882076 5.69242 1.82444 5.69242H2.21875C2.77103 5.69242 3.21875 6.14014 3.21875 6.69242V10.7643C3.21875 11.3166 3.66647 11.7643 4.21875 11.7643H7.84375C8.39604 11.7643 8.84375 11.3166 8.84375 10.7643V6.69242C8.84375 6.14014 9.29146 5.69242 9.84375 5.69242H10.2381C11.1804 5.69242 11.5997 4.50817 10.8673 3.9152L6.66048 0.509417Z" fill="#5A5A5A"/>
-                            </g>
-                            <defs>
-                                <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0.286621">
-                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                                    <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
-                                    <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                                    <feOffset dy="2"/>
-                                    <feGaussianBlur stddeviation="1.5"/>
-                                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
-                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                                    <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
-                                </filter>
-                            </defs>
-                        </svg>
-                        <p>{{ debate.side1_votes }}</p>
-                    </div>
-<div class="vote downvote" onclick="vote('side2', {{debate.id}}, this)">
+            <select name="menu_destination" onchange="document.location = '/home/?page=1&amp;category=' + this.options[this.selectedIndex].value;">
 
-                        <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
-                            <g filter="url(#filter0_i)">
-                                <path d="M5.40202 11.2549C5.76892 11.552 6.29358 11.552 6.66048 11.2549L10.8673 7.84914C11.5997 7.25618 11.1804 6.07192 10.2381 6.07192H9.84375C9.29147 6.07192 8.84375 5.6242 8.84375 5.07192V1C8.84375 0.447716 8.39603 0 7.84375 0H4.21875C3.66647 0 3.21875 0.447715 3.21875 1V5.07192C3.21875 5.6242 2.77103 6.07192 2.21875 6.07192H1.82444C0.882075 6.07192 0.462786 7.25618 1.19521 7.84914L5.40202 11.2549Z" fill="#5A5A5A"/>
-                            </g>
-                            <defs>
-                                <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0">
-                                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                                    <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
-                                    <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                                    <feOffset dy="2"/>
-                                    <feGaussianBlur stddeviation="1.5"/>
-                                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
-                                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                                    <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
-                                </filter>
-                            </defs>
-                        </svg>
-                        <p>{{ debate.side2_votes }}</p>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No debates</p>
-    {% endif %}
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
+              <option selected="selected" value="">{{ app.request.query.get('category') ?  app.request.query.get('category') : 'Category' }}</option>
+              <option value="food">Alimentation</option>
+              <option value="science">Science</option>
+              <option value="sport">Sport</option>
+              <option value="tv">TV réalité</option>
+              <option value="style">Style</option>
+              <option value="travel">Voyage</option>
+              <option value="medecine">Médecine</option>
+            </select>
+
+            <input style="display: none;" title="valider pour aller à la page sélectionnée" type="submit" value="Go"/>
+
+          </p>
+        </form>
+
+      </div>
     </div>
-<script>
+    {% for debate in debates %}
+      <div class="debate">
+        <div class="debate__header">
+          <a href="/debate/{{debate.id}}">
+            <div class="debate__subheader">
+              <h3>{{debate.title}}</h3>
+              <div class="debate__subsubheader">
+                <span>by
+                  {{debate.author}}
+                  ·
+                </span>
+                <span>{{debate.created}}</span>
+              </div>
+            </div>
+          </a>
+          <a href="/home/?page={{app.request.query.get('page') ? app.request.query.get('page') : '1' }}&amp;category={{debate.category}}"<h4 class="category">{{debate.category}}</h4>
+        </div>
+
+        <div class="progress">
+          <div class="progress-bar" id="side1" style="width: 50%">{{debate.side1}}</div>
+          <div class="progress-bar" id="side2" style="width: 50%">{{debate.side2}}</div>
+        </div>
+        <div class="votes">
+          <div class="vote upvote" onclick="vote('side1', {{debate.id}}, this)">
+
+            <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_i)">
+                <path d="M6.66048 0.509417C6.29358 0.212377 5.76892 0.212377 5.40202 0.509417L1.19521 3.9152C0.462788 4.50817 0.882076 5.69242 1.82444 5.69242H2.21875C2.77103 5.69242 3.21875 6.14014 3.21875 6.69242V10.7643C3.21875 11.3166 3.66647 11.7643 4.21875 11.7643H7.84375C8.39604 11.7643 8.84375 11.3166 8.84375 10.7643V6.69242C8.84375 6.14014 9.29146 5.69242 9.84375 5.69242H10.2381C11.1804 5.69242 11.5997 4.50817 10.8673 3.9152L6.66048 0.509417Z" fill="#5A5A5A"/>
+              </g>
+              <defs>
+                <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0.286621">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
+                  <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                  <feOffset dy="2"/>
+                  <feGaussianBlur stddeviation="1.5"/>
+                  <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                  <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
+                </filter>
+              </defs>
+            </svg>
+            <p>{{ debate.side1_votes }}</p>
+          </div>
+          <div class="vote downvote" onclick="vote('side2', {{debate.id}}, this)">
+
+            <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_i)">
+                <path d="M5.40202 11.2549C5.76892 11.552 6.29358 11.552 6.66048 11.2549L10.8673 7.84914C11.5997 7.25618 11.1804 6.07192 10.2381 6.07192H9.84375C9.29147 6.07192 8.84375 5.6242 8.84375 5.07192V1C8.84375 0.447716 8.39603 0 7.84375 0H4.21875C3.66647 0 3.21875 0.447715 3.21875 1V5.07192C3.21875 5.6242 2.77103 6.07192 2.21875 6.07192H1.82444C0.882075 6.07192 0.462786 7.25618 1.19521 7.84914L5.40202 11.2549Z" fill="#5A5A5A"/>
+              </g>
+              <defs>
+                <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
+                  <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                  <feOffset dy="2"/>
+                  <feGaussianBlur stddeviation="1.5"/>
+                  <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                  <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
+                </filter>
+              </defs>
+            </svg>
+            <p>{{ debate.side2_votes }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No debates</p>
+  {% endif %}
+  <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+  <script>
     function progressHandle() {
       let debates = document.querySelectorAll('.debate')
       debates.forEach(debate => {
-        
+
         let progressSide1 = debate.querySelector('#side1');
         let progressSide2 = debate.querySelector('#side2');
-      let vote1 = Number(debate.querySelector('.upvote p').innerHTML);
-      let vote2 = Number(debate.querySelector('.downvote p').innerHTML);
+        let vote1 = Number(debate.querySelector('.upvote p').innerHTML);
+        let vote2 = Number(debate.querySelector('.downvote p').innerHTML);
 
-        let value = Math.ceil(( vote1 / (vote1 + vote2)) * 100);
-        progressSide1.style.width = value +'%';
-        progressSide2.style.width = 100 - value +'%';
+        let value = Math.ceil((vote1 / (vote1 + vote2)) * 100);
+        progressSide1.style.width = value + '%';
+        progressSide2.style.width = 100 - value + '%';
 
       })
-      }
+    }
 
-      setTimeout(progressHandle(), 100);
-      function vote(side, id, element) {
-          var formData = new FormData();
-          formData.append('id', id);
-          formData.append('side', side);
-          fetch('{{ path("update_route") }}', {
-              method: 'POST',
-              body: formData
-          }).then(() => { // Votes change
-              let vote = element.querySelector('.vote p')
-              let number = Number(vote.innerHTML);
-              number += 1;
-              vote.innerHTML = number;
-              progressHandle();
-          })
-      }
-      
-    </script>
+    setTimeout(progressHandle(), 100);
+    function vote(side, id, element) {
+      var formData = new FormData();
+      formData.append('id', id);
+      formData.append('side', side);
+      fetch('{{ path("update_route") }}', {
+        method: 'POST',
+        body: formData
+      }).then(() => { // Votes change
+        let vote = element.querySelector('.vote p')
+        let number = Number(vote.innerHTML);
+        number += 1;
+        vote.innerHTML = number;
+        progressHandle();
+      })
+    }
+  </script>
 
 
 {% endblock %}
-
-    

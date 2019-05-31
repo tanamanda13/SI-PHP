@@ -44,12 +44,12 @@ class DebateRepository extends ServiceEntityRepository
             ->getResult()
             ;
     } 
-    public function findByCategory($value)
+    public function findByCategory($value, $order)
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.category = :val')
             ->setParameter('val', $value)
-            ->orderBy('d.created', 'DESC')
+            ->orderBy('d.'.$order, 'DESC')
             ->getQuery()
         ;
     }

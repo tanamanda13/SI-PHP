@@ -45,9 +45,15 @@ class DebateController extends AbstractController
      */
     public function index($order, Request $request, PaginatorInterface $paginator, Relativetime $relativetime, DebateRepository $debates)
     {
-
-        $lastDebates = $paginator->paginate($debates->findAllQuery($order),
+        $categories = ['food', 'science', 'sport', 'tv', 'style', 'travel', 'medecine']; 
+        if ($request->query->get('category') && in_array($request->query->get('category'), $categories )){
+            $lastDebates = $paginator->paginate($debates->findByCategory($request->query->get('category'), $order),
             $request->query->getInt('page', 1), 5);
+        }
+        else{
+            $lastDebates = $paginator->paginate($debates->findAllQuery($order),
+            $request->query->getInt('page', 1), 5);
+        }
         $results = [];
         foreach ($lastDebates as $debate) {
             $datetime = $debate->getCreated();
