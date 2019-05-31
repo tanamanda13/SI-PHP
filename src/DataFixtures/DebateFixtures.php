@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use App\Entity\Debate;
+use App\Entity\User;
 
 class DebateFixtures extends Fixture
 {
@@ -13,10 +14,16 @@ class DebateFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
 
         // Créer 10 débats fake
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
+            $author = new User;
+            $author->setEmail($faker->email())
+            ->setPseudo($faker->name())
+            ->setPassword($faker->word());
+            $manager->persist($author);
             $debate = new Debate();
 
-            $debate->setAuthor($faker->name());
+            $debate->setAuthor($author->getUsername());
+            $debate->setOwner($author);
             $debate->setCategory($faker->word());
             $debate->setTitle($faker->sentence(6, true));
             $debate->setDescription($faker->sentence());

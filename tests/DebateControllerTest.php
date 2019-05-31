@@ -22,11 +22,4 @@ class DebateControllerTest extends WebTestCase
         $this->assertSame(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Become a debater', $crawler->filter('h1')->text());
     }
-    public function testRoot()
-    {
-        $client = static::createClient();
-
-        // User not authorized to connect
-        $this->assertSame(302, $client->getResponse()->getStatusCode());
-    }
 }

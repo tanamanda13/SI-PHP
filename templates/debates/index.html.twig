@@ -42,6 +42,7 @@
       text-align: center;
     }
     .debate {
+      position: relative;
       background: #faf9f9;
       border-radius: 30px;
       border: 2px solid #eee;
@@ -61,6 +62,9 @@
       margin-left: 0.6rem;
     }
     .category {
+      top: 10px;
+      position: absolute; 
+      right: 20px;
       background-color: #fff;
       border-radius: 20px;
       padding: 0.5rem;
@@ -94,6 +98,9 @@
       vertical-align: bottom;
       align-items: flex-end;
       justify-content: center;
+    }
+    .progress {
+      margin-top: 30px;
     }
   </style>
 {% endblock %}
@@ -138,7 +145,7 @@
     </div>
     {% for debate in debates %}
       <div class="debate">
-        <div class="debate__header">
+        <a class="debate__header">
           <a href="/debate/{{debate.id}}">
             <div class="debate__subheader">
               <h3>{{debate.title}}</h3>
@@ -151,7 +158,12 @@
               </div>
             </div>
           </a>
-          <a{{debate.category}}</h4 href="/home/?page={{app.request.query.get('page') ? app.request.query.get('page') : '1' }}&amp;category={{debate.category}}" <h4 class="category">></div>
+<h4 >
+<a class="category" href="/home/?page={{app.request.query.get('page')?app.request.query.get('page'):'1'}}&amp;category={{debate.category}}">{{debate.category}}</a>
+
+</h4>
+
+
 
           <div class="progress">
             <div class="progress-bar" id="side1" style="width: 50%">{{debate.side1}}</div>
