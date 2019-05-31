@@ -151,99 +151,98 @@
               </div>
             </div>
           </a>
-          <a href="/home/?page={{app.request.query.get('page') ? app.request.query.get('page') : '1' }}&amp;category={{debate.category}}"<h4 class="category">{{debate.category}}</h4>
-        </div>
+          <a{{debate.category}}</h4 href="/home/?page={{app.request.query.get('page') ? app.request.query.get('page') : '1' }}&amp;category={{debate.category}}" <h4 class="category">></div>
 
-        <div class="progress">
-          <div class="progress-bar" id="side1" style="width: 50%">{{debate.side1}}</div>
-          <div class="progress-bar" id="side2" style="width: 50%">{{debate.side2}}</div>
-        </div>
-        <div class="votes">
-          <div class="vote upvote" onclick="vote('side1', {{debate.id}}, this)">
-
-            <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
-              <g filter="url(#filter0_i)">
-                <path d="M6.66048 0.509417C6.29358 0.212377 5.76892 0.212377 5.40202 0.509417L1.19521 3.9152C0.462788 4.50817 0.882076 5.69242 1.82444 5.69242H2.21875C2.77103 5.69242 3.21875 6.14014 3.21875 6.69242V10.7643C3.21875 11.3166 3.66647 11.7643 4.21875 11.7643H7.84375C8.39604 11.7643 8.84375 11.3166 8.84375 10.7643V6.69242C8.84375 6.14014 9.29146 5.69242 9.84375 5.69242H10.2381C11.1804 5.69242 11.5997 4.50817 10.8673 3.9152L6.66048 0.509417Z" fill="#5A5A5A"/>
-              </g>
-              <defs>
-                <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0.286621">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                  <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
-                  <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                  <feOffset dy="2"/>
-                  <feGaussianBlur stddeviation="1.5"/>
-                  <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
-                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                  <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
-                </filter>
-              </defs>
-            </svg>
-            <p>{{ debate.side1_votes }}</p>
+          <div class="progress">
+            <div class="progress-bar" id="side1" style="width: 50%">{{debate.side1}}</div>
+            <div class="progress-bar" id="side2" style="width: 50%">{{debate.side2}}</div>
           </div>
-          <div class="vote downvote" onclick="vote('side2', {{debate.id}}, this)">
+          <div class="votes">
+            <div class="vote upvote" onclick="vote('side1', {{debate.id}}, this)">
 
-            <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
-              <g filter="url(#filter0_i)">
-                <path d="M5.40202 11.2549C5.76892 11.552 6.29358 11.552 6.66048 11.2549L10.8673 7.84914C11.5997 7.25618 11.1804 6.07192 10.2381 6.07192H9.84375C9.29147 6.07192 8.84375 5.6242 8.84375 5.07192V1C8.84375 0.447716 8.39603 0 7.84375 0H4.21875C3.66647 0 3.21875 0.447715 3.21875 1V5.07192C3.21875 5.6242 2.77103 6.07192 2.21875 6.07192H1.82444C0.882075 6.07192 0.462786 7.25618 1.19521 7.84914L5.40202 11.2549Z" fill="#5A5A5A"/>
-              </g>
-              <defs>
-                <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0">
-                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                  <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
-                  <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                  <feOffset dy="2"/>
-                  <feGaussianBlur stddeviation="1.5"/>
-                  <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
-                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-                  <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
-                </filter>
-              </defs>
-            </svg>
-            <p>{{ debate.side2_votes }}</p>
+              <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_i)">
+                  <path d="M6.66048 0.509417C6.29358 0.212377 5.76892 0.212377 5.40202 0.509417L1.19521 3.9152C0.462788 4.50817 0.882076 5.69242 1.82444 5.69242H2.21875C2.77103 5.69242 3.21875 6.14014 3.21875 6.69242V10.7643C3.21875 11.3166 3.66647 11.7643 4.21875 11.7643H7.84375C8.39604 11.7643 8.84375 11.3166 8.84375 10.7643V6.69242C8.84375 6.14014 9.29146 5.69242 9.84375 5.69242H10.2381C11.1804 5.69242 11.5997 4.50817 10.8673 3.9152L6.66048 0.509417Z" fill="#5A5A5A"/>
+                </g>
+                <defs>
+                  <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0.286621">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
+                    <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                    <feOffset dy="2"/>
+                    <feGaussianBlur stddeviation="1.5"/>
+                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
+                  </filter>
+                </defs>
+              </svg>
+              <p>{{ debate.side1_votes }}</p>
+            </div>
+            <div class="vote downvote" onclick="vote('side2', {{debate.id}}, this)">
+
+              <svg fill="none" height="20" viewbox="0 0 12 12" width="20" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#filter0_i)">
+                  <path d="M5.40202 11.2549C5.76892 11.552 6.29358 11.552 6.66048 11.2549L10.8673 7.84914C11.5997 7.25618 11.1804 6.07192 10.2381 6.07192H9.84375C9.29147 6.07192 8.84375 5.6242 8.84375 5.07192V1C8.84375 0.447716 8.39603 0 7.84375 0H4.21875C3.66647 0 3.21875 0.447715 3.21875 1V5.07192C3.21875 5.6242 2.77103 6.07192 2.21875 6.07192H1.82444C0.882075 6.07192 0.462786 7.25618 1.19521 7.84914L5.40202 11.2549Z" fill="#5A5A5A"/>
+                </g>
+                <defs>
+                  <filter color-interpolation-filters="sRGB" filterunits="userSpaceOnUse" height="13.4777" id="filter0_i" width="10.4176" x="0.822266" y="0">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feBlend in2="BackgroundImageFix" in="SourceGraphic" mode="normal" result="shape"/>
+                    <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                    <feOffset dy="2"/>
+                    <feGaussianBlur stddeviation="1.5"/>
+                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend in2="shape" mode="normal" result="effect1_innerShadow"/>
+                  </filter>
+                </defs>
+              </svg>
+              <p>{{ debate.side2_votes }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <p>No debates</p>
-  {% endif %}
-  <div class="navigation">
-    {{ knp_pagination_render(pagination) }}
-  </div>
-  <script>
-    function progressHandle() {
-      let debates = document.querySelectorAll('.debate')
-      debates.forEach(debate => {
+      {% endfor %}
+    {% else %}
+      <p>No debates</p>
+    {% endif %}
+    <div class="navigation">
+      {{ knp_pagination_render(pagination) }}
+    </div>
+    <script>
+      function progressHandle() {
+        let debates = document.querySelectorAll('.debate')
+        debates.forEach(debate => {
 
-        let progressSide1 = debate.querySelector('#side1');
-        let progressSide2 = debate.querySelector('#side2');
-        let vote1 = Number(debate.querySelector('.upvote p').innerHTML);
-        let vote2 = Number(debate.querySelector('.downvote p').innerHTML);
+          let progressSide1 = debate.querySelector('#side1');
+          let progressSide2 = debate.querySelector('#side2');
+          let vote1 = Number(debate.querySelector('.upvote p').innerHTML);
+          let vote2 = Number(debate.querySelector('.downvote p').innerHTML);
 
-        let value = Math.ceil((vote1 / (vote1 + vote2)) * 100);
-        progressSide1.style.width = value + '%';
-        progressSide2.style.width = 100 - value + '%';
+          let value = Math.ceil((vote1 / (vote1 + vote2)) * 100);
+          progressSide1.style.width = value + '%';
+          progressSide2.style.width = 100 - value + '%';
 
-      })
-    }
+        })
+      }
 
-    setTimeout(progressHandle(), 100);
-    function vote(side, id, element) {
-      var formData = new FormData();
-      formData.append('id', id);
-      formData.append('side', side);
-      fetch('{{ path("update_route") }}', {
-        method: 'POST',
-        body: formData
-      }).then(() => { // Votes change
-        let vote = element.querySelector('.vote p')
-        let number = Number(vote.innerHTML);
-        number += 1;
-        vote.innerHTML = number;
-        progressHandle();
-      })
-    }
-  </script>
+      setTimeout(progressHandle(), 100);
+      function vote(side, id, element) {
+        var formData = new FormData();
+        formData.append('id', id);
+        formData.append('side', side);
+        fetch('{{ path("update_route") }}', {
+          method: 'POST',
+          body: formData
+        }).then(() => { // Votes change
+          let vote = element.querySelector('.vote p')
+          let number = Number(vote.innerHTML);
+          number += 1;
+          vote.innerHTML = number;
+          progressHandle();
+        })
+      }
+    </script>
 
 
-{% endblock %}
+  {% endblock %}
