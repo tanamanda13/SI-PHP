@@ -3,15 +3,22 @@
 {{ form_widget(form) }}
 {{ form_end(form) }}
 {% if comments %}
-<div class="dropdown">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="?sorting-by=recent">Recent</a>
-    <a class="dropdown-item" href="?sorting-by=popular">Popular</a>
+{# <div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown link
+  </a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
   </div>
+</div> #}
+<div class="sort">
+  <h4>Sort by</h4>
+  <a href="?sorting-by=recent">Recent</a>
+  <a href="?sorting-by=popular">Popular</a>
 </div>
+
   {% for comment in comments %}
   <div class="container card bg-light mb-3" style="max-width: 50vw; min-width: 200px">
     <div class="card-header">
