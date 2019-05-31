@@ -117,7 +117,7 @@
         <form action="http://www.monsite.net/redirection_navigation.php" method="post">
           <p>
 
-            <select name="menu_destination" onchange="document.location = '/home/?page=1&amp;category=' + this.options[this.selectedIndex].value;">
+            <select name="menu_destination" onchange="document.location = '/home/?page=1&amp;category=' + this.options[this.selectedIndex].value">
 
               <option selected="selected" value="">{{ app.request.query.get('category') ?  app.request.query.get('category') : 'Category' }}</option>
               <option value="food">Alimentation</option>
@@ -151,7 +151,7 @@
               </div>
             </div>
           </a>
-          <a{{debate.category}}</h4 href="/home/?page={{app.request.query.get('page') ? app.request.query.get('page') : '1' }}&amp;category={{debate.category}}" <h4 class="category">></div>
+          <a href="/home/?page={{app.request.query.get('page') ? app.request.query.get('page') : '1' }}&amp;category={{debate.category}}"> <h4 class="category">{{debate.category}}</div>
 
           <div class="progress">
             <div class="progress-bar" id="side1" style="width: 50%">{{debate.side1}}</div>
