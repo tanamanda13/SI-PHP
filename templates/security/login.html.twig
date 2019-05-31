@@ -1,26 +1,99 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in to Debate'up{% endblock %}
 {% block stylesheets %}
+<style>
+*{
+    margin: 0 auto;
+    text-align: center;
+}
+h1{
+    margin: 3rem;
+    display: inline-block;
+    margin: 0 auto;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5% 0;
+}
+.sr-only {
+    display: none;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    min-width:200px;
+    margin: 0 auto;
+}
+.form-title {
+    font-size: 2rem;    
+    text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+}
+.submit {
+    color: white;
+    border: none;
+    background: linear-gradient(356.92deg, #000000 -2.55%, #434343 90.18%);
+    border-radius: 30px;
+    font-size: 18px;
+    padding: 10px 30px;
+    margin: 30px auto;
+}
+.submit:active {
+    color: #20E3B2;
+}
+
+.log-in {
+    text-decoration: none;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    border: solid 2px black;
+    border-radius: 30px;
+    color: black;
+    padding: 10px 12px;
+}
+.remember-me {
+    font-family: 'Nunito Sans', sans-serif;
+    text-align: right;
+}
+.email, .password {
+    background-color: #F5F4F4;
+    border: none;   
+    border-radius: 10px;
+    width:100%;
+    height: 2rem;
+    padding: 0 .4rem; 
+    margin: 10px auto;
+    text-align: left;
+}
+</style>
 {% endblock %}
 
 {% block body %}
+<img src="http://localhost:8080/build/Home.png">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <h1 class="form-title">Please sign in</h1>
+    <div class="form-container">
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="email form-control" placeholder="Email" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="password form-control" placeholder="Password" required>
+    </div>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
     
-    <div class="checkbox mb-3">
+    <div class="remember-me">
         <label>
             <input type="checkbox" name="_remember_me"> Remember me
         </label>
@@ -38,9 +111,9 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
+    <button class="submit" type="submit">
         Sign in
-    </button>
-    <a href="/register">Pas encore inscrit ?</a>
+    </button><br>
+    <a href="/register" class="log-in">Not yet signed up ?</a>
 </form>
 {% endblock %}

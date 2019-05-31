@@ -1,6 +1,49 @@
 {% extends 'base.html.twig'%}
 
 {% block title %}New Debate{% endblock %}
+{% block stylesheets %}
+<style>
+
+.buttonWrapper {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1rem;
+}
+
+select {
+	height: 30px;
+	width: 150px;
+  margin-bottom: 1rem;
+	border: 0.1px solid #303030;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+textarea {
+  width: 100%;
+	margin-bottom: 1rem;
+	margin-top: 0.5rem;
+  padding: .35rem .45rem;
+	box-sizing: border-box;
+	border: 0.1px solid #303030;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+	border-radius: 16px;
+}
+
+.submit {
+	position: relative;
+	color: white;
+	border: none;
+	background: linear-gradient(356.92deg, #000000 -2.55%, #434343 90.18%);
+	border-radius: 30px;
+	font-size: 18px;
+	padding: 2px 9px;
+	margin-right: 14px;
+}
+.submit:active {
+	color: #20E3B2;
+}
+</style>
+{% endblock %}
 
 {% block body %}
 {{ form_start(form) }}

@@ -21,11 +21,11 @@ class DebateFormType extends AbstractType
         
         $builder
             ->add('title', TextType::class, array('attr' => array('class' => 'form-control')))
-            ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control')))
+            ->add('description', TextareaType::class, array('attr' => array('class' => 'form-control','rows' => 6 )))
             ->add('Side1', TextType::class, array('attr' => array('class' => 'form-control')))
             ->add('Side2', TextType::class, array('attr' => array('class' => 'form-control')))
             ->add('Category', ChoiceType::class, array(
-                'attr' => array('class' => 'custom-select'),
+                'attr' => array('class' => 'dropdownr'),
                 'placeholder' => 'Choose a category',
                 'choices' => $categories
                 ))
