@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190530204047 extends AbstractMigration
+final class Version20190531055645 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -32,6 +32,7 @@ final class Version20190530204047 extends AbstractMigration
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C39A6B6F6 FOREIGN KEY (debate_id) REFERENCES debate (id)');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C7E3C61F9 FOREIGN KEY (owner_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE debate ADD CONSTRAINT FK_DDC4A3687E3C61F9 FOREIGN KEY (owner_id) REFERENCES user (id)');
+        $this->addSql('DROP TABLE rememberme_token');
     }
 
     public function down(Schema $schema) : void
@@ -44,6 +45,7 @@ final class Version20190530204047 extends AbstractMigration
         $this->addSql('ALTER TABLE debate DROP FOREIGN KEY FK_DDC4A3687E3C61F9');
         $this->addSql('ALTER TABLE vote DROP FOREIGN KEY FK_5A10856439A6B6F6');
         $this->addSql('ALTER TABLE comment DROP FOREIGN KEY FK_9474526C39A6B6F6');
+        $this->addSql('CREATE TABLE rememberme_token (series CHAR(88) NOT NULL COLLATE utf8mb4_general_ci, value CHAR(88) NOT NULL COLLATE utf8mb4_general_ci, lastUsed DATETIME NOT NULL, class VARCHAR(100) NOT NULL COLLATE utf8mb4_general_ci, username VARCHAR(200) NOT NULL COLLATE utf8mb4_general_ci, UNIQUE INDEX series (series), PRIMARY KEY(series)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB COMMENT = \'\' ');
         $this->addSql('DROP TABLE vote');
         $this->addSql('DROP TABLE user');
         $this->addSql('DROP TABLE comment');
