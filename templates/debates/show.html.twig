@@ -21,6 +21,11 @@
     </style>
 {% endblock %}
 {% block body %}
+{% if debateObj.isAuthor(app.user)%}
+<a href="/debate/{{debate.id}}/delete">
+    <button type="button" class="btn btn-danger">Delete this debate</button>
+</a>
+{% endif %}
     <h1>{{debate.title}}</h1>
     <h2>Votes :
         <span class="total">{{debate.total_votes}}</span>

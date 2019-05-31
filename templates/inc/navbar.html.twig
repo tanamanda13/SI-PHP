@@ -1,31 +1,49 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
-<div class="container">
-  <a href="/" class="navbar-brand">Debate'up</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-    <span class="navbar-toggle-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="mobile-nav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="/" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item">
-        <a href="/me" class="nav-link">Profile</a>
-      </li>
-      <li class="nav-item">
-        <a href="/debate/new" class="nav-link">New Debate</a>
-      </li>
-      <li class="nav-item">
-        <a href="/logout" class="nav-link">Disconnect</a>
-      </li>
-
-    </ul>
-<form action="{{ path('home_search') }}" method="post" class="form-inline my-2 my-lg-0">
-    <input name="search" class="form-control mr-sm-2" placeholder="Search" type="text">
-    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-</form>
-
+{% if 'app_login' != app.request.attributes.get('_route') and 'app_register' != app.request.attributes.get('_route') %}
+<nav class="navbarr">
+  <div class="logo">
+    <a class="navbarr-brand" href="/">
+    <img src="http://localhost:8080/build/Home.png">
+    <h1>Debate'up</h1>
+    </a>
   </div>
-</div>
+  <div class="bar">
+    <ul class="menu">
+      <li class="nav-ite">
+        <a class="nav-lin" href="/">
+        <img src="http://localhost:8080/build/debate.png">
+        <p>Home</p>
+        </a>
+      </li>
+      <li class="nav-ite">
+        <a class="nav-lin" href="/me">
+        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="15.0002" cy="10.6667" r="8.66667" fill="#20E3B2"/>
+        <path d="M25.9585 25.1355C26.9306 26.3461 26.0318 28 24.4792 28C22.1077 28 18.7381 28 15 28C11.2619 28 7.89227 28 5.52075 28C3.96817 28 3.06944 26.3461 4.04152 25.1355C6.3513 22.2589 10.3962 18.25 15 18.25C19.6038 18.25 23.6487 22.2589 25.9585 25.1355Z" fill="#20E3B2"/>
+        <circle cx="13.0002" cy="8.66667" r="8.66667" fill="#000"/>
+        <path d="M23.9585 23.1355C24.9306 24.3461 24.0318 26 22.4792 26C20.1077 26 16.7381 26 13 26C9.26188 26 5.89227 26 3.52075 26C1.96817 26 1.06944 24.3461 2.04152 23.1355C4.3513 20.2589 8.39618 16.25 13 16.25C17.6038 16.25 21.6487 20.2589 23.9585 23.1355Z" fill="#000"/>
+        </svg>
+        <p>Profile</p>
+        </a>
+      </li>
+      <li class="nav-ite">
+        <a class="nav-lin" href="/debate/new">
+        <img src="http://localhost:8080/build/pen.png">
+        <p>New Debate</p>
+        </a>
+      </li>
+    </ul>
+    <form action="{{ path('home_search') }}" method="post" class="searchbar">
+      <input class="form-control mr-sm-2" name="search" placeholder="Search" type="text">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <a class="nav-lin" href="/logout">
+      <p class="nav-ite">Disconnect</p>
+      <svg width="30" height="28" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 0.5C5.067 0.5 3.5 2.067 3.5 4V7H6.5V4C6.5 3.72386 6.72386 3.5 7 3.5H14.6364C14.9125 3.5 15.1364 3.72386 15.1364 4V16C15.1364 16.2761 14.9125 16.5 14.6364 16.5H7C6.72386 16.5 6.5 16.2761 6.5 16V13.1515H3.5V16C3.5 17.933 5.06701 19.5 7 19.5H14.6364C16.5694 19.5 18.1364 17.933 18.1364 16V4C18.1364 2.067 16.5694 0.5 14.6364 0.5H7Z" fill="#20E3B2"/>
+      <path d="M9.42679 4.31872L14.401 9.29289C14.7915 9.68342 14.7915 10.3166 14.401 10.7071L9.42679 15.6813C8.55281 16.5553 7.18188 15.3777 7.91397 14.3819L10.4001 11H1C0.447715 11 0 10.5523 0 10C0 9.44771 0.447715 9 0.999999 9H10.4001L7.91397 5.61814C7.18188 4.62229 8.55281 3.44474 9.42679 4.31872Z" fill="#20E3B2"/>
+      </svg>
+      </a>
+    </p>
+  </div>
 </nav>
+{% endif %}

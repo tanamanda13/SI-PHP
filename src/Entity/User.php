@@ -2,13 +2,16 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"pseudo"}, message="There is already someone with this username")
  */
 class User implements UserInterface
 {
@@ -21,6 +24,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -44,6 +48,22 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity="App\Entity\Vote", mappedBy="Author", cascade={"persist", "remove"})
      */
     private $vote;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Debate", mappedBy="owner", orphanRemoval=true)
+     */
+    private $debate;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="owner", orphanRemoval=true)
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->debate = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,6 +167,68 @@ class User implements UserInterface
         // set the owning side of the relation if necessary
         if ($this !== $vote->getAuthor()) {
             $vote->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Debate[]
+     */
+    public function getDebate(): Collection
+    {
+        return $this->debate;
+    }
+
+    public function addDebate(Debate $debate): self
+    {
+        if (!$this->debate->contains($debate)) {
+            $this->debate[] = $debate;
+            $debate->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDebate(Debate $debate): self
+    {
+        if ($this->debate->contains($debate)) {
+            $this->debate->removeElement($debate);
+            // set the owning side to null (unless already changed)
+            if ($debate->getOwner() === $this) {
+                $debate->setOwner(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getOwner() === $this) {
+                $comment->setOwner(null);
+            }
         }
 
         return $this;

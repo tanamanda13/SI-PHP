@@ -3,33 +3,62 @@
 {% block title %}Register
 {% endblock %}
 {% block stylesheets %}
+<style>
+*{
+    margin: 0 auto;
+    text-align: center;
+}
+h1{
+    margin: 3rem;
+    display: inline-block;
+    margin: 0 auto;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5% 0;
+}
+.sr-only {
+    display: none;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30vw;
+    min-width:200px;
+    margin: 3% auto;
+}
+
+</style>
 {% endblock %}
 {% block body %}
 
 
+    <img src="http://localhost:8080/build/Home.png">
     <h1>Become a debater</h1>
-
-    {{ form_start(registrationForm) }}
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="staticEmail">Email</label>
-        <div class="col-sm-10">
-            {{ form_row(registrationForm.email) }}
+    <div class="form-container">
+        {{ form_start(registrationForm) }}
+        <div class="form-group row">
+            <div class="col-sm-10">
+                {{ form_row(registrationForm.email) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="staticEmail">Pseudo</label>
-        <div class="col-sm-10">
-            {{ form_row(registrationForm.pseudo) }}
+        <div class="form-group row">
+            <div class="col-sm-10">
+                {{ form_row(registrationForm.pseudo) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label class="col-sm-2 col-form-label" for="staticEmail">Password</label>
-        <div class="col-sm-10">
-            {{ form_row(registrationForm.plainPassword) }}
+        <div class="form-group row">
+            <div class="col-sm-10">
+                {{ form_row(registrationForm.plainPassword) }}
+            </div>
+
         </div>
 
+        <button class="btn btn-lg btn-primary">Register</button>
+        {{ form_end(registrationForm) }}
     </div>
-
-    <button class="btn btn-lg btn-primary">Register</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}

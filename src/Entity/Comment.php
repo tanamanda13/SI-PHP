@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -18,6 +19,7 @@ class Comment
 
     /**
      * @ORM\Column(type="smallint")
+     * @Assert\Choice({"1", "2"})
      */
     private $agree;
 
@@ -46,6 +48,12 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $debate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
 
     public function getId(): ?int
     {
@@ -109,4 +117,26 @@ class Comment
 
         return $this;
     }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Is the given User the author of this Comment?
+     *
+     * @return bool
+     */
+    public function isAuthor(User $user = null)
+    {
+        return $user && $user->getPseudo() === $this->getOwner()->getPseudo();
+    } 
 }

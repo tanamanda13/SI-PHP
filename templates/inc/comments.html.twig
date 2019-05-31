@@ -15,6 +15,11 @@
   {% for comment in comments %}
   <div class="container card bg-light mb-3" style="max-width: 50vw; min-width: 200px">
     <div class="card-header">
+    {% if comment.reference.isAuthor(app.user)%}
+    <a href="/comment/{{comment.id}}/delete">
+        <button type="button" class="btn btn-danger">Delete</button>
+    </a>
+    {% endif %}
     <h4>{{comment.author}}</h4>
     <span>{{comment.created}}</span>
     <span class="comment_votes">{{comment.votes}}</span>
